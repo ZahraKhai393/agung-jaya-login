@@ -49,7 +49,44 @@
         <p class="text-xs text-slate-400 mt-1 mb-8 tracking-wider uppercase font-medium">SPH & Invoice Generator</p>
 
         <!-- Form Login -->
-        <form class="w-full space-y-5" onsubmit="handleLogin(event)">
+        <!-- Form Login -->
+<form class="w-full space-y-5" onsubmit="handleLogin(event)">
+    
+    <!-- Input Email -->
+    <div class="space-y-1.5">
+        <label class="block text-xs font-semibold text-slate-300 tracking-wide">Email</label>
+        <div class="relative flex items-center">
+            <span class="absolute left-4 text-slate-400 text-sm">@</span>
+            <input type="email" required placeholder="email@example.com" 
+                class="glass-input w-full rounded-xl py-3 pl-10 pr-4 text-sm text-white placeholder-slate-500 focus:outline-none transition-all">
+        </div>
+    </div>
+
+    <!-- Input Password -->
+    <div class="space-y-1.5">
+        <label class="block text-xs font-semibold text-slate-300 tracking-wide">Password</label>
+        <div class="relative flex items-center">
+            <span class="absolute left-4 text-slate-400 text-sm"><i class="fa-solid fa-lock text-xs"></i></span>
+            <input type="password" required placeholder="••••••••" 
+                class="glass-input w-full rounded-xl py-3 pl-10 pr-10 text-sm text-white placeholder-slate-500 focus:outline-none transition-all">
+        </div>
+    </div>
+
+    <!-- Tombol Login -->
+    <button type="submit" class="w-full mt-2 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-600 text-white font-medium py-3 px-4 rounded-xl shadow-lg shadow-red-600/30 transition-all duration-200 flex items-center justify-center space-x-2 group">
+        <span>Login</span>
+        <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+    </button>
+</form>
+
+<script>
+    function handleLogin(e) {
+        e.preventDefault(); // Mencegah form melakukan refresh halaman bawaan
+        
+        // Langsung arahkan ke halaman dashboard
+        window.location.href = "dashboard.html";
+    }
+</script>
             
             <!-- Input Email -->
             <div class="space-y-1.5">
