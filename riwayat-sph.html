@@ -3,46 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invoice - Agung Jaya Listrik</title>
-    <!-- Tailwind CSS -->
+    <title>Riwayat SPH - Agung Jaya Listrik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #0d1117;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        .card-dark {
-            background: rgba(22, 27, 34, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .glass-input {
-            background: rgba(15, 20, 30, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: white;
-        }
-        .glass-input:focus {
-            border-color: rgba(239, 68, 68, 0.6);
-            outline: none;
-        }
-        .preview-page {
-            background: white;
-            color: black;
-            width: 100%;
-            min-height: 700px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
-        @media print {
-            body * { visibility: hidden; }
-            #printable-area, #printable-area * { visibility: visible; }
-            #printable-area { position: absolute; left: 0; top: 0; width: 100%; }
-        }
+        body { background-color: #0b0f17; font-family: system-ui, -apple-system, sans-serif; }
+        .card-dark { background: rgba(17, 24, 38, 0.7); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .glass-input { background: rgba(13, 17, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
     </style>
 </head>
 <body class="min-h-screen text-slate-200">
-
-    <!-- Navbar Atas -->
-    <header class="border-b border-slate-800 bg-[#0d1117]/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+    
+    <!-- NAVBAR UTAMA -->
+    <header class="border-b border-slate-800 bg-[#0b0f17]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
                 <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
@@ -52,354 +25,260 @@
                 <p class="text-[10px] text-slate-400">Invoice & Dokumen</p>
             </div>
         </div>
-        <nav class="hidden md:flex items-center space-x-2 text-sm font-medium">
-            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
-            <a href="sph.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Surat Penawaran Harga</a>
-            <a href="invoice.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Invoice</a>
-            <a href="surat-jalan.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Surat Jalan</a>
-            <a href="po.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Purchase Order</a>
+        <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
+            <a href="dashboard.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Dashboard</a>
+            <a href="riwayat-sph.html" class="px-3.5 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Riwayat SPH</a>
+            <a href="riwayat-invoice.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat Invoice</a>
+            <a href="riwayat-surat-jalan.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat Surat Jalan</a>
+            <a href="riwayat-po.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat PO</a>
         </nav>
         <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
+            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
         </a>
     </header>
 
-    <!-- Konten Utama Invoice -->
-    <main class="max-w-7xl mx-auto px-6 py-6">
-        
-        <!-- Header Aksi Dokumen -->
-        <div class="flex items-center justify-between mb-6">
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        <div class="flex justify-between items-center">
             <div>
-                <p class="text-xs text-slate-400"><a href="dashboard.html" class="hover:underline">Dashboard</a> > Buat Invoice</p>
-                <h2 class="text-xl font-bold text-white mt-1">Invoice / Tagihan</h2>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat & Alur Status SPH</h2>
+                <p class="text-xs text-slate-400 mt-1">Kelola status penawaran harga, edit data, dan konversi langsung ke invoice</p>
             </div>
-            <div class="flex items-center space-x-3">
-                <button onclick="generateNoInvoice()" class="bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-600/30 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span>Auto Nomor</span>
-                </button>
-                <button onclick="resetForm()" class="card-dark text-slate-300 hover:text-white px-4 py-2 rounded-xl text-xs font-semibold transition">
-                    <i class="fa-solid fa-rotate-right mr-1.5"></i> Reset
-                </button>
-                <button onclick="simpanData()" class="bg-purple-600 hover:bg-purple-500 text-white px-4 py-2 rounded-xl text-xs font-semibold transition shadow-lg shadow-purple-600/20">
-                    <i class="fa-solid fa-floppy-disk mr-1.5"></i> Simpan
-                </button>
-                <button onclick="window.print()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2 rounded-xl text-xs font-semibold transition shadow-lg shadow-red-600/20">
-                    <i class="fa-solid fa-file-pdf mr-1.5"></i> Download PDF
-                </button>
-            </div>
+            <a href="sph.html" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
+                <i class="fa-solid fa-plus"></i><span>Buat SPH Baru</span>
+            </a>
         </div>
 
-        <!-- Grid Dua Kolom -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <!-- KOLOM KIRI: FORM INPUT -->
-            <div class="lg:col-span-6 space-y-6">
-                <div class="card-dark rounded-2xl p-6 space-y-4">
-                    <h3 class="text-sm font-bold text-white border-b border-slate-800 pb-3 flex items-center space-x-2">
-                        <i class="fa-solid fa-file-invoice-dollar text-red-500"></i>
-                        <span>Informasi Tagihan</span>
-                    </h3>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Tanggal</label>
-                            <input type="date" id="inputTanggal" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">No Invoice</label>
-                            <input type="text" id="inputNoInvoice" placeholder="INV/001/10/2026" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Kepada (Nama Perusahaan / Customer)</label>
-                        <input type="text" id="inputPerusahaan" placeholder="Nama PT / Pelanggan" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Alamat Customer</label>
-                        <textarea id="inputAlamat" rows="2" placeholder="Alamat lengkap..." class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()"></textarea>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Bank Pembayaran</label>
-                            <input type="text" id="inputBank" placeholder="BCA / Mandiri" value="BCA - 1234567890 a.n Agung Jaya" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-medium text-slate-400 mb-1">Status Pembayaran</label>
-                            <select id="inputStatus" class="glass-input w-full rounded-xl px-3 py-2 text-xs" onchange="updatePreview()">
-                                <option value="Belum Lunas">Belum Lunas</option>
-                                <option value="DP Diterima">DP Diterima</option>
-                                <option value="Lunas">Lunas</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bagian Item Barang -->
-                <div class="card-dark rounded-2xl p-6 space-y-4">
-                    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-                            <i class="fa-solid fa-cart-shopping text-red-500"></i>
-                            <span>Daftar Barang / Jasa</span>
-                        </h3>
-                        <button onclick="tambahItem()" class="bg-red-600/20 text-red-400 border border-red-500/35 hover:bg-red-600/30 px-3 py-1.5 rounded-xl text-xs font-semibold transition">
-                            + Tambah Item
-                        </button>
-                    </div>
-
-                    <div id="containerItem" class="space-y-4">
-                        <div class="item-row card-dark p-4 rounded-xl relative space-y-3 border border-slate-800">
-                            <div class="flex justify-between items-center">
-                                <span class="text-xs font-bold text-slate-300">Item #1</span>
-                                <button onclick="hapusItem(this)" class="text-slate-500 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
-                            </div>
-                            <input type="text" placeholder="Nama Produk / Keterangan" class="glass-input item-nama w-full rounded-lg px-3 py-1.5 text-xs" oninput="updatePreview()">
-                            <div class="grid grid-cols-3 gap-2">
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Qty</label>
-                                    <input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label>
-                                    <input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label>
-                                    <input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- KOLOM KANAN: PREVIEW INVOICE -->
-            <div class="lg:col-span-6">
-                <div class="sticky top-20">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Preview Invoice</span>
-                        <span class="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Real-time update</span>
-                    </div>
-
-                    <div id="printable-area" class="preview-page rounded-2xl p-8 text-slate-900 text-xs">
-                        
-                        <!-- Header Surat -->
-                        <div class="flex justify-between items-start border-b-2 border-red-600 pb-6 mb-6">
-                            <div class="flex items-center space-x-3">
-                                <div class="w-14 h-14 bg-white border border-slate-200 rounded-xl p-1 shadow-sm flex items-center justify-center">
-                                    <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
-                                </div>
-                                <div>
-                                    <h2 class="text-lg font-black text-red-600 tracking-tight">AGUNG JAYA LISTRIK</h2>
-                                    <p class="text-[9px] text-slate-600 leading-tight">Mechanical Electrical, Cable Accessories SUTR & SUTM,<br>Termination & Jointing KIT, Arester, Trafo, Panel</p>
-                                </div>
-                            </div>
-                            <div class="text-right text-[9px] text-slate-600">
-                                <p><i class="fa-solid fa-location-dot text-red-600 mr-1"></i> Pasar Kenari Lama AKS LT.2 No.190 Jakarta Pusat</p>
-                                <p><i class="fa-solid fa-phone text-red-600 mr-1"></i> 081285789047 | <i class="fa-solid fa-envelope text-red-600 mr-1"></i> info@agungjayalistrik.com</p>
-                            </div>
-                        </div>
-
-                        <!-- Judul Invoice -->
-                        <div class="text-center my-6">
-                            <h3 class="text-sm font-extrabold tracking-widest uppercase border-b border-slate-300 inline-block pb-1">INVOICE TAGIHAN</h3>
-                        </div>
-
-                        <!-- Info Invoice -->
-                        <div class="grid grid-cols-2 gap-4 mb-6 text-[11px]">
-                            <div class="space-y-1">
-                                <div class="flex"><span class="w-24 font-semibold">No. Invoice</span>: <span id="prevNoInvoice" class="ml-1 text-slate-700">-</span></div>
-                                <div class="flex"><span class="w-24 font-semibold">Tanggal</span>: <span id="prevTanggal" class="ml-1 text-slate-700">-</span></div>
-                                <div class="flex"><span class="w-24 font-semibold">Status</span>: <span id="prevStatus" class="ml-1 font-bold text-red-600">Belum Lunas</span></div>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
-                                <p class="font-bold text-slate-800">Tagihan Kepada:</p>
-                                <p id="prevPerusahaan" class="font-semibold text-slate-900">(Nama Customer)</p>
-                                <p id="prevAlamat" class="text-slate-600 text-[10px]">(Alamat Customer)</p>
-                            </div>
-                        </div>
-
-                        <!-- Tabel Item -->
-                        <table class="w-full mb-6 border-collapse">
-                            <thead>
-                                <tr class="bg-red-600 text-white text-[10px]">
-                                    <th class="py-2 px-2 text-center w-8">NO</th>
-                                    <th class="py-2 px-2 text-left">KETERANGAN BARANG / JASA</th>
-                                    <th class="py-2 px-2 text-center w-16">QTY</th>
-                                    <th class="py-2 px-2 text-right w-24">HARGA SATUAN</th>
-                                    <th class="py-2 px-2 text-right w-28">TOTAL</th>
-                                </tr>
-                            </thead>
-                            <tbody id="previewTableBody" class="divide-y divide-slate-200 text-[11px]">
-                            </tbody>
-                        </table>
-
-                        <!-- Informasi Pembayaran & Total -->
-                        <div class="grid grid-cols-2 gap-4 mb-8">
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 text-[10px] space-y-1">
-                                <p class="font-bold text-slate-800">INFORMASI PEMBAYARAN:</p>
-                                <p>Transfer melalui rekening berikut:</p>
-                                <p id="prevBank" class="font-semibold text-slate-900">-</p>
-                            </div>
-                            <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
-                                <div class="flex justify-between font-bold text-slate-900 text-xs pt-1 border-t border-slate-200">
-                                    <span>TOTAL TAGIHAN:</span>
-                                    <span id="prevTotal" class="text-red-600">Rp 0</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tanda Tangan -->
-                        <div class="flex justify-end mt-8">
-                            <div class="text-center">
-                                <p class="text-slate-600 mb-12">Hormat kami,<br><strong>Agung Jaya Listrik</strong></p>
-                                <p class="font-bold border-b border-slate-800 pb-0.5">Trisha Indriyani</p>
-                                <p class="text-[10px] text-slate-500">Direktur Utama</p>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+        <!-- Tabel Riwayat SPH -->
+        <div class="card-dark rounded-2xl overflow-hidden border border-slate-800/80">
+            <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                    <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
+                        <th class="py-4 px-6 w-12 text-center">#</th>
+                        <th class="py-4 px-6">No. SPH</th>
+                        <th class="py-4 px-6">Customer</th>
+                        <th class="py-4 px-6">Tanggal Kirim</th>
+                        <th class="py-4 px-6 text-center">Status SPH</th>
+                        <th class="py-4 px-6 text-center">Aksi & Konversi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelRiwayatSPH" class="divide-y divide-slate-800/40 text-slate-300">
+                    <!-- Dimuat dinamis -->
+                </tbody>
+            </table>
         </div>
     </main>
 
-    <!-- JavaScript Invoice -->
-    <script>
-        document.getElementById('inputTanggal').valueAsDate = new Date();
-
-        // Pengecekan apakah halaman ini dibuka dari tombol "Convert Invoice" SPH
-        window.addEventListener('DOMContentLoaded', () => {
-            const dataKonversi = localStorage.getItem('konversi_sph_ke_invoice');
-            if (dataKonversi) {
-                try {
-                    const parsed = JSON.parse(dataKonversi);
-                    if (parsed.perusahaan) {
-                        document.getElementById('inputPerusahaan').value = parsed.perusahaan;
-                    }
-                    // Opsional: Berikan catatan nomor SPH asal di kolom/keterangan jika diperlukan
-                    if (parsed.noSPH) {
-                        console.log("Mengonversi dari SPH:", parsed.noSPH);
-                    }
-                } catch(e) {
-                    console.error("Gagal memuat data konversi SPH", e);
-                }
-                // Hapus data temporary setelah dimuat agar tidak menumpuk
-                localStorage.removeItem('konversi_sph_ke_invoice');
-            }
-            updatePreview();
-        });
-
-        function generateNoInvoice() {
-            const randomNo = Math.floor(Math.random() * 900) + 100;
-            const bulan = new Date().getMonth() + 1;
-            const tahun = new Date().getFullYear();
-            const formatNo = `INV/${String(randomNo).padStart(3, '0')}/${bulan}/${tahun}`;
-            document.getElementById('inputNoInvoice').value = formatNo;
-            updatePreview();
-        }
-
-        function tambahItem() {
-            const container = document.getElementById('containerItem');
-            const rowCount = container.getElementsByClassName('item-row').length + 1;
+    <!-- Modal Edit SPH -->
+    <div id="modalEditSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-md p-6 bg-[#161b22] space-y-4">
+            <h3 class="text-lg font-bold text-white">Edit Informasi SPH</h3>
+            <input type="hidden" id="editIndex">
             
-            const div = document.createElement('div');
-            div.className = 'item-row card-dark p-4 rounded-xl relative space-y-3 border border-slate-800';
-            div.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <span class="text-xs font-bold text-slate-300">Item #${rowCount}</span>
-                    <button onclick="hapusItem(this)" class="text-slate-500 hover:text-red-400 text-xs"><i class="fa-solid fa-trash"></i></button>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">No. SPH</label>
+                    <input type="text" id="editNoSPH" class="glass-input w-full rounded-xl px-3 py-2">
                 </div>
-                <input type="text" placeholder="Nama Produk / Keterangan" class="glass-input item-nama w-full rounded-lg px-3 py-1.5 text-xs" oninput="updatePreview()">
-                <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Qty</label>
-                        <input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nama Perusahaan / Customer</label>
+                    <input type="text" id="editPerusahaan" class="glass-input w-full rounded-xl px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Tanggal Kirim</label>
+                    <input type="date" id="editTanggal" class="glass-input w-full rounded-xl px-3 py-2">
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="tutupModalEdit()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanEditSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Update Status & Follow-up -->
+    <div id="modalStatusSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-lg p-6 bg-[#161b22] space-y-4">
+            <h3 class="text-lg font-bold text-white">Kelola Status & Catat Follow-up</h3>
+            <input type="hidden" id="modalIndex">
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Status SPH</label>
+                    <select id="selectStatus" onchange="toggleAlasanBatal()" class="glass-input w-full rounded-xl px-3 py-2">
+                        <option value="Draft">Draft</option>
+                        <option value="Pending">Pending (Terkirim & Menunggu)</option>
+                        <option value="Deal">Deal (Setuju)</option>
+                        <option value="Batal">Batal</option>
+                        <option value="Kedaluwarsa">Kedaluwarsa</option>
+                    </select>
+                </div>
+
+                <!-- Bagian Alasan Batal -->
+                <div id="containerAlasan" class="hidden space-y-1">
+                    <label class="block text-slate-400 mb-1">Alasan Batal <span class="text-red-500">*wajib diisi</span></label>
+                    <select id="selectAlasan" class="glass-input w-full rounded-xl px-3 py-2">
+                        <option value="Harga terlalu tinggi">Harga terlalu tinggi</option>
+                        <option value="Memilih pesaing">Memilih pesaing</option>
+                        <option value="Proyek ditunda atau batal">Proyek ditunda atau batal</option>
+                        <option value="Tidak ada respons">Tidak ada respons</option>
+                        <option value="Spesifikasi tidak sesuai">Spesifikasi tidak sesuai</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <!-- Catatan Follow-up -->
+                <div class="border-t border-slate-800 pt-3 space-y-2">
+                    <p class="font-bold text-slate-300">Catatan Follow-up Terbaru</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-1">Media</label>
+                            <select id="followupMedia" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs">
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Telepon">Telepon</option>
+                                <option value="Email">Email</option>
+                                <option value="Kunjungan">Kunjungan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-1">Jadwal Follow-up Berikutnya</label>
+                            <input type="date" id="followupNextDate" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs">
+                        </div>
                     </div>
                     <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label>
-                        <input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label>
-                        <input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
+                        <label class="block text-[10px] text-slate-400 mb-1">Ringkasan Respons Pelanggan</label>
+                        <textarea id="followupCatatan" rows="2" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs" placeholder="Contoh: Masih membandingkan harga..."></textarea>
                     </div>
                 </div>
-            `;
-            container.appendChild(div);
-        }
+            </div>
 
-        function hapusItem(btn) {
-            btn.closest('.item-row').remove();
-            updatePreview();
-        }
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="tutupModalStatus()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanStatusSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Status</button>
+            </div>
+        </div>
+    </div>
 
-        function updatePreview() {
-            const tgl = document.getElementById('inputTanggal').value;
-            const noInvoice = document.getElementById('inputNoInvoice').value || '-';
-            const perusahaan = document.getElementById('inputPerusahaan').value || '(Nama Customer)';
-            const alamat = document.getElementById('inputAlamat').value || '(Alamat Customer)';
-            const bank = document.getElementById('inputBank').value || '-';
-            const status = document.getElementById('inputStatus').value;
+    <script>
+        let riwayatSPH = JSON.parse(localStorage.getItem('data_sph')) || [
+            { id: 1, no: "001/10/SPH/2026", perusahaan: "PT. Mega Mitra Abadi", tanggal: "2026-10-25", status: "Deal", alasan: "" },
+            { id: 2, no: "002/10/SPH/2026", perusahaan: "PT. Aloy Mandiri", tanggal: "2026-11-01", status: "Pending", alasan: "" }
+        ];
 
-            let formattedDate = '-';
-            if(tgl) {
-                formattedDate = new Date(tgl).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+        function renderTabelSPH() {
+            const tbody = document.getElementById('tabelRiwayatSPH');
+            if(riwayatSPH.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada riwayat SPH.</td></tr>`;
+                return;
             }
 
-            document.getElementById('prevNoInvoice').innerText = noInvoice;
-            document.getElementById('prevTanggal').innerText = formattedDate;
-            document.getElementById('prevPerusahaan').innerText = perusahaan;
-            document.getElementById('prevAlamat').innerText = alamat;
-            document.getElementById('prevBank').innerText = bank;
-            document.getElementById('prevStatus').innerText = status;
+            tbody.innerHTML = riwayatSPH.map((item, index) => {
+                let status = item.status || 'Pending';
+                let badgeStyle = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+                
+                if(status === 'Deal') badgeStyle = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+                else if(status === 'Batal') badgeStyle = 'bg-red-500/10 text-red-400 border-red-500/20';
+                else if(status === 'Draft') badgeStyle = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+                else if(status === 'Kedaluwarsa') badgeStyle = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
 
-            const rows = document.querySelectorAll('.item-row');
-            let tbodyHTML = '';
-            let grandTotal = 0;
+                let tglKirim = new Date(item.tanggal || Date.now());
+                let selisihHari = Math.floor((new Date() - tglKirim) / (1000 * 60 * 60 * 24));
+                let umurBadge = '';
+                if(status === 'Pending') {
+                    let warnaUmur = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+                    if(selisihHari > 3 && selisihHari <= 7) warnaUmur = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+                    if(selisihHari > 7) warnaUmur = 'bg-red-500/20 text-red-400 border-red-500/30';
+                    umurBadge = `<span class="${warnaUmur} px-2 py-0.5 rounded text-[9px] font-bold ml-1">${selisihHari} hr</span>`;
+                }
 
-            rows.forEach((row, index) => {
-                const nama = row.querySelector('.item-nama').value || 'Barang/Jasa';
-                const qty = parseFloat(row.querySelector('.item-qty').value) || 0;
-                const harga = parseFloat(row.querySelector('.item-harga').value) || 0;
-                const satuan = row.querySelector('.item-satuan').value || 'pcs';
-                const subtotal = qty * harga;
-                grandTotal += subtotal;
-
-                tbodyHTML += `
-                    <tr>
-                        <td class="py-2 px-2 text-center">${index + 1}</td>
-                        <td class="py-2 px-2 font-medium">${nama}</td>
-                        <td class="py-2 px-2 text-center">${qty} ${satuan}</td>
-                        <td class="py-2 px-2 text-right">Rp ${harga.toLocaleString('id-ID')}</td>
-                        <td class="py-2 px-2 text-right font-semibold">Rp ${subtotal.toLocaleString('id-ID')}</td>
+                return `
+                    <tr class="hover:bg-slate-800/30 transition">
+                        <td class="py-4 px-6 text-center text-slate-500 font-mono">${index + 1}</td>
+                        <td class="py-4 px-6 font-bold text-white">${item.no}</td>
+                        <td class="py-4 px-6 font-medium text-slate-200">${item.perusahaan}</td>
+                        <td class="py-4 px-6 text-slate-400">${item.tanggal || '-'}</td>
+                        <td class="py-4 px-6 text-center">
+                            <span class="${badgeStyle} border px-2.5 py-1 rounded-full text-[10px] font-bold">${status}</span>
+                            ${umurBadge}
+                        </td>
+                        <td class="py-4 px-6 text-center space-x-1.5">
+                            ${status === 'Deal' ? `
+                                <button onclick="ubahKeInvoice('${item.no}', '${item.perusahaan}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition" title="Konversi ke Invoice">
+                                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Convert Invoice
+                                </button>
+                            ` : ''}
+                            <button onclick="bukaModalEdit(${index})" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-2 py-1 rounded-lg text-[11px] transition" title="Edit Data SPH">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
+                            </button>
+                            <button onclick="bukaModalStatus(${index})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2 py-1 rounded-lg text-[11px] transition" title="Status & Follow-up">
+                                <i class="fa-solid fa-list-check"></i> Status
+                            </button>
+                            <button onclick="hapusSPH(${index})" class="text-slate-500 hover:text-red-400 px-1 py-1" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
+                        </td>
                     </tr>
                 `;
-            });
+            }).join('');
+        }
 
-            if(rows.length === 0) {
-                tbodyHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-400">Belum ada item</td></tr>`;
+        // Fungsi Edit SPH
+        function bukaModalEdit(index) {
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editNoSPH').value = riwayatSPH[index].no;
+            document.getElementById('editPerusahaan').value = riwayatSPH[index].perusahaan;
+            document.getElementById('editTanggal').value = riwayatSPH[index].tanggal || '';
+            document.getElementById('modalEditSPH').classList.remove('hidden');
+        }
+        function tutupModalEdit() { document.getElementById('modalEditSPH').classList.add('hidden'); }
+        function simpanEditSPH() {
+            const index = document.getElementById('editIndex').value;
+            riwayatSPH[index].no = document.getElementById('editNoSPH').value;
+            riwayatSPH[index].perusahaan = document.getElementById('editPerusahaan').value;
+            riwayatSPH[index].tanggal = document.getElementById('editTanggal').value;
+            localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+            tutupModalEdit();
+            renderTabelSPH();
+            alert('Data SPH berhasil diperbarui!');
+        }
+
+        // Fungsi Status & Follow-up
+        function bukaModalStatus(index) {
+            document.getElementById('modalIndex').value = index;
+            document.getElementById('selectStatus').value = riwayatSPH[index].status || 'Pending';
+            document.getElementById('selectAlasan').value = riwayatSPH[index].alasan || 'Harga terlalu tinggi';
+            toggleAlasanBatal();
+            document.getElementById('modalStatusSPH').classList.remove('hidden');
+        }
+        function tutupModalStatus() { document.getElementById('modalStatusSPH').classList.add('hidden'); }
+        function toggleAlasanBatal() {
+            const status = document.getElementById('selectStatus').value;
+            document.getElementById('containerAlasan').classList.toggle('hidden', status !== 'Batal');
+        }
+        function simpanStatusSPH() {
+            const index = document.getElementById('modalIndex').value;
+            const statusBaru = document.getElementById('selectStatus').value;
+            riwayatSPH[index].status = statusBaru;
+            riwayatSPH[index].alasan = (statusBaru === 'Batal') ? document.getElementById('selectAlasan').value : '';
+            
+            localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+            tutupModalStatus();
+            renderTabelSPH();
+            alert('Status SPH berhasil diperbarui!');
+        }
+
+        function hapusSPH(index) {
+            if(confirm('Hapus riwayat SPH ini?')) {
+                riwayatSPH.splice(index, 1);
+                localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+                renderTabelSPH();
             }
-
-            document.getElementById('previewTableBody').innerHTML = tbodyHTML;
-            document.getElementById('prevTotal').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
         }
 
-        function resetForm() {
-            document.getElementById('inputNoInvoice').value = '';
-            document.getElementById('inputPerusahaan').value = '';
-            document.getElementById('inputAlamat').value = '';
-            document.getElementById('inputTanggal').valueAsDate = new Date();
-            updatePreview();
+        function ubahKeInvoice(noSPH, perusahaan) {
+            localStorage.setItem('konversi_sph_ke_invoice', JSON.stringify({ noSPH, perusahaan }));
+            window.location.href = 'invoice.html';
         }
 
-        function simpanData() {
-            alert("Invoice berhasil disimpan!");
-        }
+        renderTabelSPH();
     </script>
 </body>
 </html>
