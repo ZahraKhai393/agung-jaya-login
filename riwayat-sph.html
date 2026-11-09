@@ -14,7 +14,7 @@
 </head>
 <body class="min-h-screen text-slate-200">
     
-    <!-- NAVBAR (Disamakan persis dengan Riwayat Invoice) -->
+    <!-- NAVBAR UTAMA -->
     <header class="border-b border-slate-800 bg-[#0b0f17]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
@@ -26,25 +26,25 @@
             </div>
         </div>
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
-            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
+            <a href="dashboard.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Dashboard</a>
             <a href="riwayat-sph.html" class="px-3.5 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Riwayat SPH</a>
-            <a href="riwayat-invoice.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Riwayat Invoice</a>
-            <a href="riwayat-surat-jalan.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Riwayat Surat Jalan</a>
-            <a href="riwayat-po.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Riwayat PO</a>
+            <a href="riwayat-invoice.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat Invoice</a>
+            <a href="riwayat-surat-jalan.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat Surat Jalan</a>
+            <a href="riwayat-po.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Riwayat PO</a>
         </nav>
         <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
             <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
         </a>
     </header>
 
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <div class="flex justify-between items-center mb-6">
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        <div class="flex justify-between items-center">
             <div>
-                <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat Surat Penawaran Harga (SPH)</h2>
-                <p class="text-xs text-slate-400 mt-1">Daftar penawaran harga yang telah dikirimkan ke customer</p>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat & Alur Status SPH</h2>
+                <p class="text-xs text-slate-400 mt-1">Kelola status penawaran harga, masa berlaku, dan catatan follow-up pelanggan</p>
             </div>
             <a href="sph.html" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
-                <i class="fa-solid fa-plus"></i><span>Buat SPH</span>
+                <i class="fa-solid fa-plus"></i><span>Buat SPH Baru</span>
             </a>
         </div>
 
@@ -53,68 +53,116 @@
             <table class="w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
-                        <th class="py-4 px-6 w-16 text-center">#</th>
+                        <th class="py-4 px-6 w-12 text-center">#</th>
                         <th class="py-4 px-6">No. SPH</th>
-                        <th class="py-4 px-6">Kepada (Customer)</th>
-                        <th class="py-4 px-6">Tanggal</th>
-                        <th class="py-4 px-6 text-center">Status</th>
-                        <th class="py-4 px-6 text-center">Aksi & Konversi</th>
+                        <th class="py-4 px-6">Customer</th>
+                        <th class="py-4 px-6">Tanggal Kirim</th>
+                        <th class="py-4 px-6 text-center">Status SPH</th>
+                        <th class="py-4 px-6 text-center">Aksi & Follow-up</th>
                     </tr>
                 </thead>
                 <tbody id="tabelRiwayatSPH" class="divide-y divide-slate-800/40 text-slate-300">
-                    <!-- Data dimuat dari LocalStorage secara dinamis -->
+                    <!-- Dimuat dinamis -->
                 </tbody>
             </table>
         </div>
     </main>
 
-    <!-- Modal Edit SPH -->
-    <div id="modalEditSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
-        <div class="card-dark rounded-2xl w-full max-w-md p-6 bg-[#161b22]">
-            <h3 class="text-lg font-bold mb-4 text-white">Edit Data SPH</h3>
-            <input type="hidden" id="editIndex">
+    <!-- Modal Update Status & Follow-up -->
+    <div id="modalStatusSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-lg p-6 bg-[#161b22] space-y-4">
+            <h3 class="text-lg font-bold text-white">Kelola SPH & Catat Follow-up</h3>
+            <input type="hidden" id="modalIndex">
+            
             <div class="space-y-3 text-xs">
                 <div>
-                    <label class="block text-slate-400 mb-1">No. SPH</label>
-                    <input type="text" id="editNoSPH" class="glass-input w-full rounded-xl px-3 py-2">
-                </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">Nama Perusahaan / Customer</label>
-                    <input type="text" id="editPerusahaan" class="glass-input w-full rounded-xl px-3 py-2">
-                </div>
-                <div>
-                    <label class="block text-slate-400 mb-1">Status</label>
-                    <select id="editStatus" class="glass-input w-full rounded-xl px-3 py-2">
-                        <option value="Menunggu">Menunggu</option>
-                        <option value="Deal">Deal</option>
-                        <option value="Cancel">Cancel</option>
+                    <label class="block text-slate-400 mb-1">Status SPH</label>
+                    <select id="selectStatus" onchange="toggleAlasanBatal()" class="glass-input w-full rounded-xl px-3 py-2">
+                        <option value="Draft">Draft</option>
+                        <option value="Pending">Pending (Terkirim & Menunggu)</option>
+                        <option value="Deal">Deal (Setuju)</option>
+                        <option value="Batal">Batal</option>
+                        <option value="Kedaluwarsa">Kedaluwarsa</option>
                     </select>
                 </div>
+
+                <!-- Bagian Alasan Batal (Wajib jika Batal) -->
+                <div id="containerAlasan" class="hidden space-y-1">
+                    <label class="block text-slate-400 mb-1">Alasan Batal <span class="text-red-500">*wajib diisi</span></label>
+                    <select id="selectAlasan" class="glass-input w-full rounded-xl px-3 py-2">
+                        <option value="Harga terlalu tinggi">Harga terlalu tinggi</option>
+                        <option value="Memilih pesaing">Memilih pesaing</option>
+                        <option value="Proyek ditunda atau batal">Proyek ditunda atau batal</option>
+                        <option value="Tidak ada respons">Tidak ada respons</option>
+                        <option value="Spesifikasi tidak sesuai">Spesifikasi tidak sesuai</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </div>
+
+                <!-- Catatan Follow-up -->
+                <div class="border-t border-slate-800 pt-3 space-y-2">
+                    <p class="font-bold text-slate-300">Catatan Follow-up Terbaru</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-1">Media</label>
+                            <select id="followupMedia" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs">
+                                <option value="WhatsApp">WhatsApp</option>
+                                <option value="Telepon">Telepon</option>
+                                <option value="Email">Email</option>
+                                <option value="Kunjungan">Kunjungan</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[10px] text-slate-400 mb-1">Jadwal Follow-up Berikutnya</label>
+                            <input type="date" id="followupNextDate" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 mb-1">Ringkasan Respons Pelanggan</label>
+                        <textarea id="followupCatatan" rows="2" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs" placeholder="Contoh: Masih membandingkan harga dengan vendor lain..."></textarea>
+                    </div>
+                </div>
             </div>
-            <div class="flex justify-end space-x-3 mt-6">
-                <button onclick="tutupModalEdit()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
-                <button onclick="simpanEditSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Perubahan</button>
+
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="tutupModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanStatusSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Perubahan</button>
             </div>
         </div>
     </div>
 
     <script>
         let riwayatSPH = JSON.parse(localStorage.getItem('data_sph')) || [
-            { id: 1, no: "001/10/SPH/2026", perusahaan: "PT. Mega Mitra Abadi", tanggal: "2026-10-25", status: "Deal" },
-            { id: 2, no: "002/10/SPH/2026", perusahaan: "PT. Aloy Mandiri", tanggal: "2026-10-28", status: "Menunggu" }
+            { id: 1, no: "001/10/SPH/2026", perusahaan: "PT. Mega Mitra Abadi", tanggal: "2026-10-25", status: "Deal", alasan: "" },
+            { id: 2, no: "002/10/SPH/2026", perusahaan: "PT. Aloy Mandiri", tanggal: "2026-11-01", status: "Pending", alasan: "" }
         ];
 
         function renderTabelSPH() {
             const tbody = document.getElementById('tabelRiwayatSPH');
             if(riwayatSPH.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada riwayat SPH tersimpan.</td></tr>`;
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-6 text-slate-500">Belum ada riwayat SPH.</td></tr>`;
                 return;
             }
 
             tbody.innerHTML = riwayatSPH.map((item, index) => {
-                let badgeColor = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
-                if(item.status === 'Deal') badgeColor = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
-                if(item.status === 'Cancel') badgeColor = 'bg-red-500/10 text-red-400 border-red-500/20';
+                let status = item.status || 'Pending';
+                let badgeStyle = 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+                
+                if(status === 'Deal') badgeStyle = 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20';
+                else if(status === 'Batal') badgeStyle = 'bg-red-500/10 text-red-400 border-red-500/20';
+                else if(status === 'Draft') badgeStyle = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
+                else if(status === 'Kedaluwarsa') badgeStyle = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
+
+                // Hitung umur pending untuk badge warna (Hijau 0-3hr, Kuning 4-7hr, Merah >7hr)
+                let tglKirim = new Date(item.tanggal || Date.now());
+                let selisihHari = Math.floor((new Date() - tglKirim) / (1000 * 60 * 60 * 24));
+                let umurBadge = '';
+                if(status === 'Pending') {
+                    let warnaUmur = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
+                    if(selisihHari > 3 && selisihHari <= 7) warnaUmur = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
+                    if(selisihHari > 7) warnaUmur = 'bg-red-500/20 text-red-400 border-red-500/30';
+                    umurBadge = `<span class="${warnaUmur} px-2 py-0.5 rounded text-[9px] font-bold ml-1">${selisihHari} hari</span>`;
+                }
 
                 return `
                     <tr class="hover:bg-slate-800/30 transition">
@@ -123,59 +171,78 @@
                         <td class="py-4 px-6 font-medium text-slate-200">${item.perusahaan}</td>
                         <td class="py-4 px-6 text-slate-400">${item.tanggal || '-'}</td>
                         <td class="py-4 px-6 text-center">
-                            <span class="${badgeColor} border px-2.5 py-1 rounded-full text-[10px] font-bold">${item.status || 'Menunggu'}</span>
+                            <span class="${badgeStyle} border px-2.5 py-1 rounded-full text-[10px] font-bold">${status}</span>
+                            ${umurBadge}
                         </td>
                         <td class="py-4 px-6 text-center space-x-2">
-                            <button onclick="ubahKeInvoice('${item.no}', '${item.perusahaan}')" title="Ubah ke Invoice" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition">
-                                <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Ubah ke Invoice
+                            ${status === 'Deal' ? `
+                                <button onclick="ubahKeInvoice('${item.no}', '${item.perusahaan}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-2 py-1 rounded-lg text-[11px] font-semibold transition">
+                                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Buat Invoice
+                                </button>
+                            ` : ''}
+                            <button onclick="bukaModal(${index})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-medium transition" title="Kelola Status & Follow-up">
+                                <i class="fa-solid fa-pen-to-square mr-1"></i> Kelola / Follow-up
                             </button>
-                            <button onclick="bukaEdit(${index})" class="text-slate-400 hover:text-amber-400 p-1" title="Edit SPH"><i class="fa-solid fa-pen-to-square"></i></button>
-                            <button onclick="hapusSPH(${index})" class="text-slate-400 hover:text-red-400 p-1" title="Hapus"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function bukaEdit(index) {
-            const item = riwayatSPH[index];
-            document.getElementById('editIndex').value = index;
-            document.getElementById('editNoSPH').value = item.no;
-            document.getElementById('editPerusahaan').value = item.perusahaan;
-            document.getElementById('editStatus').value = item.status || 'Menunggu';
-            document.getElementById('modalEditSPH').classList.remove('hidden');
+        function bukaModal(index) {
+            document.getElementById('modalIndex').value = index;
+            document.getElementById('selectStatus').value = riwayatSPH[index].status || 'Pending';
+            document.getElementById('selectAlasan').value = riwayatSPH[index].alasan || 'Harga terlalu tinggi';
+            toggleAlasanBatal();
+            document.getElementById('modalStatusSPH').classList.remove('hidden');
         }
 
-        function tutupModalEdit() {
-            document.getElementById('modalEditSPH').classList.add('hidden');
+        function tutupModal() {
+            document.getElementById('modalStatusSPH').classList.add('hidden');
         }
 
-        function simpanEditSPH() {
-            const index = document.getElementById('editIndex').value;
-            riwayatSPH[index].no = document.getElementById('editNoSPH').value;
-            riwayatSPH[index].perusahaan = document.getElementById('editPerusahaan').value;
-            riwayatSPH[index].status = document.getElementById('editStatus').value;
-
-            localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
-            tutupModalEdit();
-            renderTabelSPH();
-            alert('Data SPH berhasil diperbarui!');
-        }
-
-        function hapusSPH(index) {
-            if(confirm('Yakin ingin menghapus riwayat SPH ini?')) {
-                riwayatSPH.splice(index, 1);
-                localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
-                renderTabelSPH();
+        function toggleAlasanBatal() {
+            const status = document.getElementById('selectStatus').value;
+            const containerAlasan = document.getElementById('containerAlasan');
+            if (status === 'Batal') {
+                containerAlasan.classList.remove('hidden');
+            } else {
+                containerAlasan.classList.add('hidden');
             }
         }
 
+        function simpanStatusSPH() {
+            const index = document.getElementById('modalIndex').value;
+            const statusBaru = document.getElementById('selectStatus').value;
+            const alasanBaru = document.getElementById('selectAlasan').value;
+            const catatanFollowup = document.getElementById('followupCatatan').value;
+
+            riwayatSPH[index].status = statusBaru;
+            if (statusBaru === 'Batal') {
+                riwayatSPH[index].alasan = alasanBaru;
+            } else {
+                riwayatSPH[index].alasan = '';
+            }
+
+            // Simpan riwayat follow-up sederhana ke array item
+            if(!riwayatSPH[index].followups) riwayatSPH[index].followups = [];
+            if(catatanFollowup.trim() !== '') {
+                riwayatSPH[index].followups.push({
+                    tanggal: new Date().toISOString().split('T')[0],
+                    media: document.getElementById('followupMedia').value,
+                    catatan: catatanFollowup,
+                    berikutnya: document.getElementById('followupNextDate').value
+                });
+            }
+
+            localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+            tutupModal();
+            renderTabelSPH();
+            alert('Status dan catatan follow-up SPH berhasil diperbarui!');
+        }
+
         function ubahKeInvoice(noSPH, perusahaan) {
-            // Menyimpan data sementara ke localStorage agar form Invoice otomatis terisi
-            const dataKonversi = { noSPH: noSPH, perusahaan: perusahaan };
-            localStorage.setItem('konversi_sph_ke_invoice', JSON.stringify(dataKonversi));
-            
-            // Mengarahkan halaman ke form invoice.html
+            localStorage.setItem('konversi_sph_ke_invoice', JSON.stringify({ noSPH, perusahaan }));
             window.location.href = 'invoice.html';
         }
 
