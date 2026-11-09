@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Analitik SPH - Agung Jaya Listrik</title>
+    <title>Dashboard Analisis SPH - Agung Jaya Listrik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js untuk Kurva Grafik -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body { background-color: #0d1117; font-family: system-ui, -apple-system, sans-serif; }
         .card-dark { background: rgba(22, 27, 34, 0.8); border: 1px solid rgba(255, 255, 255, 0.06); }
@@ -13,7 +15,7 @@
         .group:hover .dropdown-menu { display: block; }
     </style>
 </head>
-<body class="min-h-screen text-slate-200">
+<body class="min-h-screen text-slate-250 text-slate-200">
 
     <!-- Navbar Atas -->
     <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
@@ -22,17 +24,12 @@
                 <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
             </div>
             <div>
-                <h1 class="font-bold text-sm tracking-wide">Agung Jaya Listrik</h1>
+                <h1 class="font-bold text-sm tracking-wide text-white">Agung Jaya Listrik</h1>
                 <p class="text-[10px] opacity-70">Invoice & Dokumen</p>
             </div>
         </div>
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
             <a href="dashboard.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Dashboard</a>
-            <a href="inventory.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Inventory</a>
-            <a href="jadwal.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Jadwal</a>
-            <a href="pengeluaran.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Pengeluaran</a>
-            <a href="laporan.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Laporan</a>
-            
             <div class="relative group">
                 <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1">
                     <span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
@@ -44,7 +41,6 @@
                     <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Purchase Order</a>
                 </div>
             </div>
-
             <div class="relative group">
                 <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1">
                     <span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
@@ -62,168 +58,141 @@
         </a>
     </header>
 
-    <!-- Konten Utama Dashboard BI SPH -->
-    <main class="max-w-7xl mx-auto px-6 py-8">
-        <div class="mb-6 flex justify-between items-center">
+    <!-- Konten Utama Dashboard -->
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        
+        <!-- Header Judul -->
+        <div class="flex justify-between items-center">
             <div>
-                <p class="text-xs uppercase tracking-widest font-semibold opacity-60 mb-1">Business Intelligence & Analytics</p>
-                <h2 class="text-2xl font-bold tracking-tight text-white">Dashboard Analisis Konversi SPH</h2>
+                <p class="text-xs uppercase tracking-widest font-semibold text-slate-400 mb-1">Business Intelligence 2026</p>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Analisis Tren Status SPH (Januari - Desember)</h2>
             </div>
             <div class="card-dark px-4 py-2 rounded-xl text-xs font-medium text-slate-300 flex items-center space-x-2">
-                <i class="fa-regular fa-calendar text-red-500"></i>
-                <span id="currentDateLabel">November 2026</span>
+                <i class="fa-solid fa-chart-line text-red-500"></i>
+                <span>Mode Live Analytics</span>
             </div>
         </div>
 
-        <!-- 4 Kartu Metrik KPI (Sesuai Referensi Gambar) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-            <!-- SPH Diterbitkan -->
-            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
-                <p class="text-xs font-medium text-slate-400 mb-2">SPH diterbitkan</p>
-                <h3 id="metricTotalSPH" class="text-3xl font-black text-white">0</h3>
+        <!-- 4 Kartu Ringkasan Status SPH -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div class="card-dark p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 mb-1">Total SPH Terbit</p>
+                <h3 id="statTotal" class="text-3xl font-black text-white">0</h3>
             </div>
-            <!-- Deal -->
-            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
-                <p class="text-xs font-medium text-slate-400 mb-2">Deal</p>
-                <h3 id="metricDeal" class="text-3xl font-black text-emerald-400">0</h3>
+            <div class="card-dark p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 mb-1">Status: Deal</p>
+                <h3 id="statDeal" class="text-3xl font-black text-emerald-400">0</h3>
             </div>
-            <!-- Conversion Rate -->
-            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
-                <p class="text-xs font-medium text-slate-400 mb-2">Conversion rate</p>
-                <h3 id="metricConversionRate" class="text-3xl font-black text-indigo-400">0%</h3>
+            <div class="card-dark p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 mb-1">Status: Pending / Menunggu</p>
+                <h3 id="statPending" class="text-3xl font-black text-amber-400">0</h3>
             </div>
-            <!-- Menggantung > 14 hari -->
-            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
-                <p class="text-xs font-medium text-slate-400 mb-2">Menggantung lebih dari 14 hari</p>
-                <h3 id="metricPendingOld" class="text-3xl font-black text-red-500">0</h3>
+            <div class="card-dark p-5 rounded-2xl">
+                <p class="text-xs text-slate-400 mb-1">Status: Cancel / Batal</p>
+                <h3 id="statCancel" class="text-3xl font-black text-red-500">0</h3>
             </div>
         </div>
 
-        <!-- Tabel Perlu Follow-up (Sesuai Referensi Gambar) -->
+        <!-- Bagian Kurva Grafik Tren SPH (Jan - Des) -->
         <div class="card-dark rounded-2xl p-6">
-            <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-800">
-                <div>
-                    <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-                        <i class="fa-solid fa-clock-rotate-left text-red-500"></i>
-                        <span>Perlu follow-up</span>
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mt-0.5">diurutkan dari prioritas tertinggi berdasarkan umur surat</p>
+            <div class="flex justify-between items-center mb-6 pb-3 border-b border-slate-800">
+                <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-wave-square text-indigo-400"></i>
+                    <span>Grafik Pergerakan Status SPH (Januari - Desember 2026)</span>
+                </h3>
+                <div class="flex items-center space-x-4 text-xs">
+                    <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span><span class="text-slate-300">Deal</span></span>
+                    <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-amber-500 inline-block"></span><span class="text-slate-300">Pending</span></span>
+                    <span class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span><span class="text-slate-300">Cancel</span></span>
                 </div>
-                <span class="text-xs text-slate-400 font-mono" id="countFollowUp">0 perusahaan</span>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-xs">
-                    <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
-                            <th class="py-3 px-4">Perusahaan</th>
-                            <th class="py-3 px-4">Umur SPH</th>
-                            <th class="py-3 px-4">Nilai Estimasi</th>
-                            <th class="py-3 px-4">Follow-up Terakhir</th>
-                            <th class="py-3 px-4 text-center">Prioritas</th>
-                            <th class="py-3 px-4 text-center">Aksi Catat</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableFollowUpBody" class="divide-y divide-slate-800/40 text-slate-300">
-                        <!-- Data masuk otomatis -->
-                    </tbody>
-                </table>
+            <!-- Elemen Kanvas Grafik Chart.js -->
+            <div class="relative h-[350px] w-full">
+                <canvas id="sphTrendChart"></canvas>
             </div>
         </div>
+
     </main>
 
     <script>
-        function loadDashboardAnalytics() {
-            // Mengambil data SPH dari localStorage yang dibuat di sph.html
-            const dataSPH = JSON.parse(localStorage.getItem('data_sph')) || [
-                // Data dummy contoh jika localStorage masih kosong agar dashboard langsung hidup
-                { id: 1, no: "001/10/SPH/2026", perusahaan: "PT. ALOY", tanggal: "15 Okt 2026", status: "pending" },
-                { id: 2, no: "002/10/SPH/2026", perusahaan: "PT. AGB", tanggal: "27 Okt 2026", status: "pending" },
-                { id: 3, no: "003/10/SPH/2026", perusahaan: "PT. XYZ", tanggal: "05 Nov 2026", status: "pending" }
-            ];
+        // Simulasi atau Pengambilan Data SPH dari localStorage
+        function initDashboard() {
+            const dataSPH = JSON.parse(localStorage.getItem('data_sph')) || [];
 
-            const totalSPH = dataSPH.length;
-            // Simulasi hitung data deal (misal 1 data sudah deal jika ada)
-            const totalDeal = dataSPH.filter(i => i.status === 'deal').length;
-            const conversionRate = totalSPH > 0 ? ((totalDeal / totalSPH) * 100).toFixed(1) : 0;
+            // Hitung ringkasan status secara dinamis
+            let total = dataSPH.length;
+            // Jika data dari localStorage belum ada statusnya, kita set default 'pending'
+            let deal = dataSPH.filter(i => i.status === 'deal').length;
+            let pending = total - deal; // atau filter status pending
+            let cancel = dataSPH.filter(i => i.status === 'cancel').length;
+
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statDeal').innerText = deal;
+            document.getElementById('statPending').innerText = pending > 0 ? pending : total; // contoh fallback
+            document.getElementById('statCancel').innerText = cancel;
+
+            // Konfigurasi Grafik Kurva Bulanan (Jan - Des) menggunakan Chart.js
+            const ctx = document.getElementById('sphTrendChart').getContext('2d');
             
-            // Hitung umur surat & surat yang menggantung > 14 hari
-            let pendingOldCount = 0;
-            const today = new Date();
-
-            const processedData = dataSPH.map(item => {
-                // Simulasi perhitungan umur berdasarkan tanggal string
-                const tglSurat = new Date(item.tanggal);
-                const diffTime = Math.abs(today - tglSurat);
-                const umurHari = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 12; // perkiraan hari
-
-                if (umurHari > 14) pendingOldCount++;
-
-                // Tentukan prioritas otomatis
-                let prioritas = "Rendah";
-                let badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                if (umurHari > 20) {
-                    prioritas = "Tinggi";
-                    badgeColor = "bg-red-500/10 text-red-400 border-red-500/20";
-                } else if (umurHari > 10) {
-                    prioritas = "Sedang";
-                    badgeColor = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+            // Data bulanan (Contoh distribusi data dari Jan s.d Des)
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+            
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [
+                        {
+                            label: 'Deal',
+                            data: [2, 4, 3, 5, 6, 8, 7, 9, 6, 8, deal || 5, 0],
+                            borderColor: '#10b981', // Emerald
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Pending',
+                            data: [3, 2, 4, 3, 2, 4, 5, 3, 4, 3, 3, 0],
+                            borderColor: '#f59e0b', // Amber
+                            backgroundColor: 'rgba(245, 158, 11, 0.05)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Cancel',
+                            data: [1, 0, 1, 2, 1, 0, 1, 2, 0, 1, 1, 0],
+                            borderColor: '#ef4444', // Red
+                            backgroundColor: 'rgba(239, 68, 68, 0.05)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false } // Menggunakan custom legenda di atas
+                    },
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#94a3b8' }
+                        }
+                    }
                 }
-
-                return {
-                    ...item,
-                    umur: `${umurHari} hari`,
-                    nilai: "Rp 15.500.000", // Contoh nominal estimasi
-                    lastFollowUp: "3 hari lalu",
-                    prioritas,
-                    badgeColor
-                };
             });
-
-            // Render ke Kartu KPI di Atas
-            document.getElementById('metricTotalSPH').innerText = totalSPH;
-            document.getElementById('metricDeal').innerText = totalDeal;
-            document.getElementById('metricConversionRate').innerText = `${conversionRate}%`;
-            document.getElementById('metricPendingOld').innerText = pendingOldCount;
-            document.getElementById('countFollowUp').innerText = `${processedData.length} perusahaan`;
-
-            // Render ke Tabel Follow-up
-            const tbody = document.getElementById('tableFollowUpBody');
-            if (processedData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-500">Belum ada data SPH untuk dianalisis.</td></tr>`;
-                return;
-            }
-
-            let html = '';
-            processedData.forEach(item => {
-                html += `
-                    <tr class="hover:bg-slate-800/20 transition">
-                        <td class="py-3.5 px-4 font-bold text-white">${item.perusahaan}</td>
-                        <td class="py-3.5 px-4 text-slate-300">${item.umur}</td>
-                        <td class="py-3.5 px-4 font-semibold text-slate-200">${item.nilai}</td>
-                        <td class="py-3.5 px-4 text-slate-400">${item.lastFollowUp}</td>
-                        <td class="py-3.5 px-4 text-center">
-                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${item.badgeColor}">${item.prioritas}</span>
-                        </td>
-                        <td class="py-3.5 px-4 text-center">
-                            <button onclick="catatFollowUp('${item.perusahaan}')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-[11px] font-medium transition">
-                                <i class="fa-solid fa-pen-to-square mr-1 text-red-500"></i> Catat
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            });
-            tbody.innerHTML = html;
         }
 
-        function catatFollowUp( namaPerusahaan) {
-            const catatan = prompt(`Catat hasil follow-up untuk ${namaPerusahaan} (Contoh: Kunjungan via WA / Deal / Minta penawaran ulang):`);
-            if (catatan) {
-                alert(`Catatan follow-up untuk ${namaPerusahaan} berhasil disimpan!`);
-            }
-        }
-
-        loadDashboardAnalytics();
+        initDashboard();
     </script>
 </body>
 </html>
