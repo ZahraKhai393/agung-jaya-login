@@ -1,0 +1,27 @@
+<!-- riwayat-surat-jalan.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8"><title>Riwayat Surat Jalan - Agung Jaya Listrik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style> body { background-color: #0b0f17; font-family: system-ui; color: #cbd5e1; } .card-dark { background: rgba(17, 24, 38, 0.7); border: 1px solid rgba(255,255,255,0.06); } </style>
+</head>
+<body class="min-h-screen">
+    <header class="border-b border-slate-800 bg-[#0b0f17]/90 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50">
+        <div class="flex items-center space-x-3"><div class="w-10 h-10 bg-white rounded-xl p-1"><img src="logoAJL.png" class="w-full h-full object-contain"></div><h1 class="text-white font-bold text-sm">Agung Jaya Listrik</h1></div>
+        <nav class="hidden md:flex space-x-2 text-sm">
+            <a href="dashboard.html" class="px-3 py-1.5 text-slate-300 hover:text-white">Dashboard</a>
+            <a href="riwayat-sph.html" class="px-3 py-1.5 text-slate-300">Riwayat SPH</a>
+            <a href="riwayat-invoice.html" class="px-3 py-1.5 text-slate-300">Riwayat Invoice</a>
+            <a href="riwayat-surat-jalan.html" class="px-3 py-1.5 bg-red-600/20 text-red-500 font-semibold rounded-lg border border-red-500/30">Riwayat Surat Jalan</a>
+            <a href="riwayat-po.html" class="px-3 py-1.5 text-slate-300">Riwayat PO</a>
+        </nav>
+        <a href="index.html" class="px-3 py-1.5 card-dark text-xs text-slate-300">Logout</a>
+    </header>
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <h2 class="text-2xl font-bold text-white mb-6">Riwayat Surat Jalan (Pengiriman Barang)</h2>
+        <div class="card-dark rounded-2xl p-6 text-center text-slate-400">Belum ada riwayat surat jalan pengiriman.</div>
+    </main>
+</body>
+</html>
