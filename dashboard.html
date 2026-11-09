@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Ringkasan Keuangan - Agung Jaya Listrik</title>
+    <title>Dashboard - Agung Jaya Listrik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -67,166 +67,160 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
         
-        <!-- HEADER & FILTER KEUANGAN -->
+        <!-- BANNER RINGKASAN DATA AKTIF -->
         <div class="hero-banner p-6 rounded-3xl space-y-6 shadow-2xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <div class="flex items-center space-x-2">
-                        <h2 class="text-xl font-bold text-white tracking-tight">Ringkasan Keuangan 2026</h2>
-                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-circle text-[8px] mr-1 animate-pulse"></i>Live</span>
+                        <h2 class="text-xl font-bold text-white tracking-tight">Ringkasan SPH & Dokumen 2026</h2>
+                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-circle text-[8px] mr-1 animate-pulse"></i>Live Data</span>
                     </div>
-                    <p class="text-xs text-slate-300 mt-1">Diperbarui secara real-time dari data transaksi dan invoice aktif</p>
-                </div>
-                
-                <!-- Filter Bulan Pill -->
-                <div class="flex flex-wrap items-center gap-1.5 bg-[#0d1117]/60 p-1.5 rounded-2xl border border-white/10 text-xs font-semibold">
-                    <button onclick="filterBulan('Semua')" id="btn-Semua" class="px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white transition">Semua</button>
-                    <button onclick="filterBulan('Jay')" id="btn-Jay" class="px-3 py-1.5 rounded-xl text-slate-300 hover:text-white transition">Jay</button>
-                    <button onclick="filterBulan('Boy')" id="btn-Boy" class="px-3 py-1.5 rounded-xl text-slate-300 hover:text-white transition">Boy</button>
+                    <p class="text-xs text-slate-300 mt-1">Statistik dihitung langsung dari SPH dan Invoice yang tersimpan di sistem</p>
                 </div>
             </div>
 
-            <!-- 4 KARTU RINGKASAN KEUANGAN -->
+            <!-- 4 KARTU STATISTIK BERDASARKAN DATA NYATA -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
-                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Penjualan</p>
-                    <h3 id="valPenjualan" class="text-2xl font-black text-white">1.7 M</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">131 invoice</p>
+                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Total SPH Terbit</p>
+                    <h3 id="statTotal" class="text-2xl font-black text-white">0</h3>
+                    <p class="text-[10px] text-slate-400 mt-1">Dokumen penawaran</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
-                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Untung Kotor</p>
-                    <h3 id="valUntungKotor" class="text-2xl font-black text-emerald-400">239.6 jt</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">45 inv belum diisi modal</p>
+                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Deal</p>
+                    <h3 id="statDeal" class="text-2xl font-black text-emerald-400">0</h3>
+                    <p class="text-[10px] text-slate-400 mt-1">Customer setuju</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
-                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Pengeluaran</p>
-                    <h3 id="valPengeluaran" class="text-2xl font-black text-amber-400">13.5 jt</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">Jay 13.5 jt · Boy 0</p>
+                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Pending</p>
+                    <h3 id="statPending" class="text-2xl font-black text-amber-400">0</h3>
+                    <p class="text-[10px] text-slate-400 mt-1">Menunggu konfirmasi</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
-                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Untung Bersih</p>
-                    <h3 id="valUntungBersih" class="text-2xl font-black text-indigo-400">226.2 jt</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">untung kotor – biaya ops 13.5 jt</p>
+                    <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Cancel</p>
+                    <h3 id="statCancel" class="text-2xl font-black text-red-400">0</h3>
+                    <p class="text-[10px] text-slate-400 mt-1">Dibatalkan</p>
                 </div>
             </div>
         </div>
 
-        <!-- KURVA GRAFIK PROFESIONAL -->
+        <!-- KURVA GRAFIK HALUS & PROFESIONAL -->
         <div class="card-dark rounded-3xl p-6 space-y-4 shadow-xl">
             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
                 <h3 class="text-sm font-bold text-white flex items-center space-x-2">
                     <i class="fa-solid fa-chart-line text-indigo-400"></i>
-                    <span>Analisis Tren Keuangan Bulanan (Januari - Desember)</span>
+                    <span>Kurva Analisis Tren SPH (Januari - Desember)</span>
                 </h3>
             </div>
             
             <div class="relative h-[380px] w-full">
-                <canvas id="financialChart"></canvas>
-            </div>
-
-            <!-- Navigasi Filter Bulan Bawah -->
-            <div class="flex flex-wrap justify-center gap-2 pt-4 border-t border-slate-800/80 text-xs font-medium">
-                <button onclick="highlightBulan('Semua')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white shadow">Semua</button>
-                <button onclick="highlightBulan('Jan')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Jan</button>
-                <button onclick="highlightBulan('Feb')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Feb</button>
-                <button onclick="highlightBulan('Mar')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Mar</button>
-                <button onclick="highlightBulan('Apr')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Apr</button>
-                <button onclick="highlightBulan('Mei')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Mei</button>
-                <button onclick="highlightBulan('Jun')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Jun</button>
-                <button onclick="highlightBulan('Jul')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Jul</button>
-                <button onclick="highlightBulan('Agu')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Agu</button>
-                <button onclick="highlightBulan('Sep')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Sep</button>
-                <button onclick="highlightBulan('Okt')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Okt</button>
-                <button onclick="highlightBulan('Nov')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Nov</button>
-                <button onclick="highlightBulan('Des')" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300">Des</button>
+                <canvas id="sphTrendChart"></canvas>
             </div>
         </div>
 
     </main>
 
-    <!-- SCRIPT GRAFIK & INTERAKTIVITAS -->
+    <!-- SCRIPT PENGAMBILAN DATA NYATA & RENDER KURVA -->
     <script>
-        const ctx = document.getElementById('financialChart').getContext('2d');
-        
-        const chartData = {
-            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
-            datasets: [
-                {
-                    label: 'Penjualan',
-                    data: [150, 480, 73.3, 120, 200, 310, 420, 250, 340, 290, 180, 50],
-                    borderColor: '#818cf8',
-                    backgroundColor: 'rgba(129, 140, 248, 0.1)',
-                    borderWidth: 3,
-                    tension: 0.4,
-                    fill: true
-                },
-                {
-                    label: 'Untung Kotor',
-                    data: [20, 65, 13.8, 25, 40, 55, 75, 45, 60, 50, 30, 10],
-                    borderColor: '#34d399',
-                    backgroundColor: 'transparent',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: false
-                },
-                {
-                    label: 'Untung Bersih',
-                    data: [15, 60, 13.8, 20, 35, 50, 70, 40, 55, 45, 25, 8],
-                    borderColor: '#f43f5e',
-                    backgroundColor: 'transparent',
-                    borderWidth: 2,
-                    tension: 0.4,
-                    fill: false
-                },
-                {
-                    label: 'Pengeluaran Jay',
-                    data: [5, 5, 0, 5, 2, 3, 4, 2, 3, 2, 1, 1],
-                    borderColor: '#fbbf24',
-                    backgroundColor: 'transparent',
-                    borderWidth: 2,
-                    borderDash: [4, 4],
-                    tension: 0.4,
-                    fill: false
-                }
-            ]
-        };
+        function loadDashboardData() {
+            // Mengambil data SPH asli dari localStorage
+            let savedSPH = JSON.parse(localStorage.getItem('data_sph')) || [];
+            
+            let total = savedSPH.length;
+            let deal = 0;
+            let pending = 0;
+            let cancel = 0;
 
-        const financialChart = new Chart(ctx, {
-            type: 'line',
-            data: chartData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                        labels: { color: '#cbd5e1', font: { size: 11 } }
-                    }
+            let dealBulan = new Array(12).fill(0);
+            let pendingBulan = new Array(12).fill(0);
+            let cancelBulan = new Array(12).fill(0);
+
+            savedSPH.forEach((item, idx) => {
+                let status = (item.status || 'Menunggu').toLowerCase();
+                let bulanIdx = idx % 12; // Penempatan bulan dinamis berdasarkan urutan data
+                if (item.tanggal) {
+                    let d = new Date(item.tanggal);
+                    if (!isNaN(d.getMonth())) bulanIdx = d.getMonth();
+                }
+
+                if (status === 'deal' || status === 'lunas') {
+                    deal++;
+                    dealBulan[bulanIdx]++;
+                } else if (status === 'cancel' || status === 'batal') {
+                    cancel++;
+                    cancelBulan[bulanIdx]++;
+                } else {
+                    pending++;
+                    pendingBulan[bulanIdx]++;
+                }
+            });
+
+            // Jika belum ada data sama sekali, beri nilai 0 agar akurat
+            document.getElementById('statTotal').innerText = total;
+            document.getElementById('statDeal').innerText = deal;
+            document.getElementById('statPending').innerText = pending;
+            document.getElementById('statCancel').innerText = cancel;
+
+            // Render Kurva Garis Halus (Smooth Multi-Line Chart)
+            const ctx = document.getElementById('sphTrendChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                    datasets: [
+                        {
+                            label: 'Deal',
+                            data: dealBulan,
+                            borderColor: '#34d399',
+                            backgroundColor: 'rgba(52, 211, 153, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Pending',
+                            data: pendingBulan,
+                            borderColor: '#fbbf24',
+                            backgroundColor: 'rgba(251, 191, 36, 0.08)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Cancel',
+                            data: cancelBulan,
+                            borderColor: '#f43f5e',
+                            backgroundColor: 'rgba(244, 63, 94, 0.08)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
                 },
-                scales: {
-                    x: {
-                        grid: { color: 'rgba(255, 255, 255, 0.04)' },
-                        ticks: { color: '#94a3b8' }
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: { color: '#cbd5e1', font: { size: 11 } }
+                        }
                     },
-                    y: {
-                        grid: { color: 'rgba(255, 255, 255, 0.04)' },
-                        ticks: { color: '#94a3b8' }
+                    scales: {
+                        x: {
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { color: '#94a3b8' }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
+                            ticks: { color: '#94a3b8', precision: 0 }
+                        }
                     }
                 }
-            }
-        });
-
-        function filterBulan(tipe) {
-            ['Semua', 'Jay', 'Boy'].forEach(t => {
-                document.getElementById('btn-' + t).className = t === tipe ? 
-                    'px-3.5 py-1.5 rounded-xl bg-indigo-600 text-white transition' : 
-                    'px-3 py-1.5 rounded-xl text-slate-300 hover:text-white transition';
             });
         }
 
-        function highlightBulan( bulan ) {
-            // Bisa dikembangkan untuk fokus data per bulan tertentu
-        }
+        loadDashboardData();
     </script>
 </body>
 </html>
