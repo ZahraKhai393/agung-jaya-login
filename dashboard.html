@@ -51,13 +51,13 @@
 
         <!-- Menu Navigasi Tengah -->
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
-            <a href="index.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Dashboard</a>
+            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Dashboard</a>
             <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Inventory</a>
             <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Jadwal</a>
             <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Pengeluaran</a>
             <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Laporan</a>
             
-            <!-- Dropdown Buat Dokumen -->
+            <!-- Dropdown Buat Dokumen (Terhubung ke File HTML Masing-masing) -->
             <div class="relative group">
                 <button class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1">
                     <span>Buat Dokumen</span>
@@ -78,11 +78,10 @@
                     <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
                 <div class="dropdown-menu p-1.5 space-y-1 text-xs">
-                    <a href="#" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat SPH<br><span class="text-[10px] text-slate-500">Semua penawaran harga</span></a>
-                    <a href="#" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Invoice<br><span class="text-[10px] text-slate-500">Semua invoice</span></a>
-                    <a href="#" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Surat Jalan<br><span class="text-[10px] text-slate-500">Semua surat jalan</span></a>
-                    <a href="#" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat PO<br><span class="text-[10px] text-slate-500">Semua purchase order</span></a>
-                    <a href="#" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white border-t border-slate-800 mt-1 pt-1">Catatan Modal (HPP)<br><span class="text-[10px] text-slate-500">Margin per invoice</span></a>
+                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat SPH<br><span class="text-[10px] text-slate-500">Semua penawaran harga</span></a>
+                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Invoice<br><span class="text-[10px] text-slate-500">Semua invoice</span></a>
+                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Surat Jalan<br><span class="text-[10px] text-slate-500">Semua surat jalan</span></a>
+                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat PO<br><span class="text-[10px] text-slate-500">Semua purchase order</span></a>
                 </div>
             </div>
         </nav>
@@ -92,7 +91,7 @@
             <button class="w-9 h-9 rounded-lg card-dark flex items-center justify-center text-slate-400 hover:text-white">
                 <i class="fa-solid fa-sun text-xs"></i>
             </button>
-            <a href="login.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
+            <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
