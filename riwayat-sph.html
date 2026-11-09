@@ -10,38 +10,45 @@
         body { background-color: #0b0f17; font-family: system-ui, -apple-system, sans-serif; }
         .card-dark { background: rgba(17, 24, 38, 0.7); border: 1px solid rgba(255, 255, 255, 0.06); }
         .glass-input { background: rgba(13, 17, 23, 0.8); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
+        .group:hover .dropdown-menu { display: block; }
     </style>
 </head>
 <body class="min-h-screen text-slate-200">
-    <header class="border-b border-slate-800 bg-[#0b0f17]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+    <!-- Navbar Atas -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
-                <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
-            </div>
-            <div>
-                <h1 class="text-white font-bold text-sm tracking-wide">Agung Jaya Listrik</h1>
-                <p class="text-[10px] text-slate-400">Invoice & Dokumen</p>
-            </div>
+            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow"><img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain"></div>
+            <div><h1 class="font-bold text-sm tracking-wide">Agung Jaya Listrik</h1><p class="text-[10px] opacity-70">Invoice & Dokumen</p></div>
         </div>
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
-            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Dashboard</a>
-            <a href="sph.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition">Buat SPH</a>
-            <a href="riwayat-sph.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Riwayat SPH</a>
+            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Dashboard</a>
+            <div class="relative group">
+                <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1"><span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Penawaran Harga</a>
+                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Invoice</a>
+                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Jalan</a>
+                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Purchase Order</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <button class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30 flex items-center space-x-1"><span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-white font-semibold">Riwayat SPH</a>
+                    <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Invoice</a>
+                    <a href="riwayat-surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Surat Jalan</a>
+                    <a href="riwayat-po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat PO</a>
+                </div>
+            </div>
         </nav>
-        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
-            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
-        </a>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-8">
         <div class="flex justify-between items-center mb-6">
-            <div>
-                <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat SPH</h2>
-                <p id="jumlahData" class="text-xs text-slate-400 mt-1">Memuat data...</p>
-            </div>
-            <a href="sph.html" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
-                <i class="fa-solid fa-plus"></i><span>Buat SPH</span>
-            </a>
+            <div><h2 class="text-2xl font-bold text-white tracking-tight">Riwayat SPH (Penawaran Harga)</h2><p id="jumlahData" class="text-xs text-slate-400 mt-1">Memuat data...</p></div>
+            <a href="sph.html" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition flex items-center space-x-2"><i class="fa-solid fa-plus"></i><span>Buat SPH Baru</span></a>
         </div>
 
         <div class="relative mb-6">
@@ -53,11 +60,12 @@
             <table class="w-full text-left border-collapse text-xs">
                 <thead>
                     <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
-                        <th class="py-4 px-6 w-16 text-center">#</th>
-                        <th class="py-4 px-6">Nomor Surat</th>
+                        <th class="py-4 px-6 w-12 text-center">#</th>
+                        <th class="py-4 px-6">Nomor SPH</th>
                         <th class="py-4 px-6">Nama Perusahaan</th>
                         <th class="py-4 px-6">Tanggal</th>
-                        <th class="py-4 px-6 text-center w-36">Aksi</th>
+                        <th class="py-4 px-6 text-center">Status Deal</th>
+                        <th class="py-4 px-6 text-center">Aksi Cepat (Generate Turunan)</th>
                     </tr>
                 </thead>
                 <tbody id="tabelBody" class="divide-y divide-slate-800/40 text-slate-300"></tbody>
@@ -66,17 +74,15 @@
     </main>
 
     <script>
-        function getStoredData() {
-            return JSON.parse(localStorage.getItem('data_sph')) || [];
-        }
+        function getStoredData() { return JSON.parse(localStorage.getItem('data_sph')) || []; }
 
         function renderTabel(data) {
             const tbody = document.getElementById('tabelBody');
             document.getElementById('jumlahData').innerText = `${data.length} penawaran harga ditemukan`;
             
-            if(data.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-10 text-slate-500">Belum ada riwayat SPH yang disimpan. Silakan buat SPH baru terlebih dahulu.</td></tr>`;
-                return;
+            if(data.length === 0) { 
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-10 text-slate-500">Belum ada riwayat SPH. Silakan buat SPH terlebih dahulu.</td></tr>`; 
+                return; 
             }
 
             let html = '';
@@ -85,12 +91,22 @@
                     <tr class="hover:bg-slate-800/20 transition">
                         <td class="py-4 px-6 text-center text-slate-500 font-mono">${index + 1}</td>
                         <td class="py-4 px-6 font-bold text-white font-mono">${item.no}</td>
-                        <td class="py-4 px-6 font-medium text-slate-200">${item.perusahaan}</td>
+                        <td class="py-4 px-6 font-medium">${item.perusahaan}</td>
                         <td class="py-4 px-6 text-slate-400">${item.tanggal}</td>
                         <td class="py-4 px-6 text-center">
-                            <div class="flex items-center justify-center space-x-4 text-slate-400">
-                                <button onclick="cetakItem()" title="Download PDF" class="hover:text-blue-400 transition"><i class="fa-solid fa-file-arrow-down"></i></button>
-                                <button onclick="hapusItem(${item.id})" title="Hapus" class="hover:text-red-400 transition"><i class="fa-solid fa-trash"></i></button>
+                            <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2.5 py-1 rounded-full text-[10px] font-bold">Menunggu Deal</span>
+                        </td>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex items-center justify-center space-x-2">
+                                <button onclick="prosesDokumen('${item.no}', '${item.perusahaan}', 'invoice')" class="bg-blue-600/20 text-blue-400 border border-blue-500/30 hover:bg-blue-600/30 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition" title="Customer Setuju: Buat Invoice">
+                                    <i class="fa-solid fa-file-invoice mr-1"></i> Buat Invoice
+                                </button>
+                                <button onclick="prosesDokumen('${item.no}', '${item.perusahaan}', 'surat-jalan')" class="bg-emerald-600/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-600/30 px-2.5 py-1.5 rounded-lg text-[10px] font-semibold transition" title="Kirim Barang: Buat Surat Jalan">
+                                    <i class="fa-solid fa-truck mr-1"></i> Surat Jalan
+                                </button>
+                                <button onclick="hapusItem(${item.id})" class="text-slate-500 hover:text-red-400 p-1.5" title="Hapus SPH">
+                                    <i class="fa-solid fa-trash text-xs"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -100,28 +116,33 @@
         }
 
         function filterData() {
-            const keyword = document.getElementById('inputCari').value.toLowerCase();
-            const data = getStoredData();
-            const filtered = data.filter(item => 
-                item.no.toLowerCase().includes(keyword) || item.perusahaan.toLowerCase().includes(keyword)
-            );
-            renderTabel(filtered);
+            const kw = document.getElementById('inputCari').value.toLowerCase();
+            renderTabel(getStoredData().filter(i => i.no.toLowerCase().includes(kw) || i.perusahaan.toLowerCase().includes(kw)));
+        }
+
+        // Fungsi Cerdas: Ketika Customer Setuju, Data SPH langsung dilempar ke form Invoice atau Surat Jalan
+        function prosesDokumen(noSPH, namaPerusahaan, jenisTujuan) {
+            // Simpan data sementara ke localStorage agar form tujuan bisa langsung membaca otomatis
+            const dataPilihan = { noSPH, perusahaan: namaPerusahaan };
+            localStorage.setItem('temp_selected_sph', JSON.stringify(dataPilihan));
+
+            if(jenisTujuan === 'invoice') {
+                alert(`Customer (${namaPerusahaan}) setuju! Mengarahkan ke form Invoice...`);
+                window.location.href = 'invoice.html';
+            } else if(jenisTujuan === 'surat-jalan') {
+                alert(`Memproses pengiriman untuk (${namaPerusahaan})! Mengarahkan ke form Surat Jalan...`);
+                window.location.href = 'surat-jalan.html';
+            }
         }
 
         function hapusItem(id) {
-            if(confirm("Apakah kamu yakin ingin menghapus data ini dari riwayat?")) {
-                let data = getStoredData();
-                data = data.filter(item => item.id !== id);
+            if(confirm("Hapus data SPH ini dari riwayat?")) {
+                let data = getStoredData().filter(i => i.id !== id);
                 localStorage.setItem('data_sph', JSON.stringify(data));
                 renderTabel(data);
             }
         }
 
-        function cetakItem() {
-            window.print();
-        }
-
-        // Muat data saat halaman dibuka
         renderTabel(getStoredData());
     </script>
 </body>
