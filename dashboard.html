@@ -12,6 +12,7 @@
         .hero-banner { background: linear-gradient(135deg, rgba(79, 70, 229, 0.25) 0%, rgba(147, 51, 234, 0.2) 100%); border: 1px solid rgba(255, 255, 255, 0.1); }
         .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
         .group:hover .dropdown-menu { display: block; }
+        .glass-input { background: rgba(15, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
     </style>
 </head>
 <body class="min-h-screen bg-[#0d1117] text-slate-200">
@@ -67,47 +68,50 @@
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
         
-        <!-- BANNER RINGKASAN DATA AKTIF -->
+        <!-- BANNER & FILTER TAHUN -->
         <div class="hero-banner p-6 rounded-3xl space-y-6 shadow-2xl">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
-                    <div class="flex items-center space-x-2">
-                        <h2 class="text-xl font-bold text-white tracking-tight">Ringkasan SPH & Dokumen 2026</h2>
-                        <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-bold px-2.5 py-0.5 rounded-full"><i class="fa-solid fa-circle text-[8px] mr-1 animate-pulse"></i>Live Data</span>
-                    </div>
-                    <p class="text-xs text-slate-300 mt-1">Statistik dihitung langsung dari SPH dan Invoice yang tersimpan di sistem</p>
+                    <h2 class="text-xl font-bold text-white tracking-tight">Analisis SPH & Dokumen</h2>
+                    <p class="text-xs text-slate-300 mt-1">Pilih tahun untuk memantau performa dokumen pada periode tersebut</p>
+                </div>
+                <!-- PILIHAN FILTER TAHUN -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs text-slate-300 font-semibold">Tahun:</span>
+                    <select id="filterTahun" onchange="loadDashboardData()" class="glass-input px-4 py-2 rounded-xl text-xs font-bold">
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- 4 KARTU STATISTIK BERDASARKAN DATA NYATA -->
+            <!-- KARTU STATISTIK -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
                     <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Total SPH Terbit</p>
                     <h3 id="statTotal" class="text-2xl font-black text-white">0</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">Dokumen penawaran</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
                     <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Deal</p>
                     <h3 id="statDeal" class="text-2xl font-black text-emerald-400">0</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">Customer setuju</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
                     <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Pending</p>
                     <h3 id="statPending" class="text-2xl font-black text-amber-400">0</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">Menunggu konfirmasi</p>
                 </div>
                 <div class="bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur">
                     <p class="text-[11px] text-slate-300 uppercase tracking-wider mb-1 font-semibold">Status: Cancel</p>
                     <h3 id="statCancel" class="text-2xl font-black text-red-400">0</h3>
-                    <p class="text-[10px] text-slate-400 mt-1">Dibatalkan</p>
                 </div>
             </div>
         </div>
 
-        <!-- KURVA GRAFIK HALUS & PROFESIONAL -->
+        <!-- KURVA GRAFIK TREN SPH -->
         <div class="card-dark rounded-3xl p-6 space-y-4 shadow-xl">
             <div class="flex justify-between items-center pb-3 border-b border-slate-800">
-                <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                <h3 id="judulKurva" class="text-sm font-bold text-white flex items-center space-x-2">
                     <i class="fa-solid fa-chart-line text-indigo-400"></i>
                     <span>Kurva Analisis Tren SPH (Januari - Desember)</span>
                 </h3>
@@ -120,50 +124,60 @@
 
     </main>
 
-    <!-- SCRIPT PENGAMBILAN DATA NYATA & RENDER KURVA -->
+    <!-- SCRIPT FILTER TAHUN & RENDER KURVA -->
     <script>
+        let myChart = null;
+
         function loadDashboardData() {
-            // Mengambil data SPH asli dari localStorage
+            const tahunPilihan = document.getElementById('filterTahun').value;
+            document.getElementById('judulKurva').innerHTML = `<i class="fa-solid fa-chart-line text-indigo-400"></i><span>Kurva Analisis Tren SPH Tahun ${tahunPilihan} (Januari - Desember)</span>`;
+
             let savedSPH = JSON.parse(localStorage.getItem('data_sph')) || [];
             
-            let total = savedSPH.length;
-            let deal = 0;
-            let pending = 0;
-            let cancel = 0;
-
+            let total = 0, deal = 0, pending = 0, cancel = 0;
             let dealBulan = new Array(12).fill(0);
             let pendingBulan = new Array(12).fill(0);
             let cancelBulan = new Array(12).fill(0);
 
-            savedSPH.forEach((item, idx) => {
-                let status = (item.status || 'Menunggu').toLowerCase();
-                let bulanIdx = idx % 12; // Penempatan bulan dinamis berdasarkan urutan data
+            savedSPH.forEach((item) => {
+                let itemTahun = '2026'; // Default tahun jika tanggal kosong
+                let bulanIdx = 0;
+
                 if (item.tanggal) {
                     let d = new Date(item.tanggal);
+                    if (!isNaN(d.getFullYear())) itemTahun = String(d.getFullYear());
                     if (!isNaN(d.getMonth())) bulanIdx = d.getMonth();
                 }
 
-                if (status === 'deal' || status === 'lunas') {
-                    deal++;
-                    dealBulan[bulanIdx]++;
-                } else if (status === 'cancel' || status === 'batal') {
-                    cancel++;
-                    cancelBulan[bulanIdx]++;
-                } else {
-                    pending++;
-                    pendingBulan[bulanIdx]++;
+                // Hanya proses data yang sesuai dengan tahun yang dipilih di filter
+                if (itemTahun === tahunPilihan) {
+                    total++;
+                    let status = (item.status || 'Menunggu').toLowerCase();
+
+                    if (status === 'deal' || status === 'lunas') {
+                        deal++;
+                        dealBulan[bulanIdx]++;
+                    } else if (status === 'cancel' || status === 'batal') {
+                        cancel++;
+                        cancelBulan[bulanIdx]++;
+                    } else {
+                        pending++;
+                        pendingBulan[bulanIdx]++;
+                    }
                 }
             });
 
-            // Jika belum ada data sama sekali, beri nilai 0 agar akurat
+            // Update Angka di Kartu Statistik
             document.getElementById('statTotal').innerText = total;
             document.getElementById('statDeal').innerText = deal;
             document.getElementById('statPending').innerText = pending;
             document.getElementById('statCancel').innerText = cancel;
 
-            // Render Kurva Garis Halus (Smooth Multi-Line Chart)
+            // Render Ulang Kurva Grafik Chart.js
             const ctx = document.getElementById('sphTrendChart').getContext('2d');
-            new Chart(ctx, {
+            if (myChart) myChart.destroy();
+
+            myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
@@ -201,20 +215,11 @@
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            position: 'top',
-                            labels: { color: '#cbd5e1', font: { size: 11 } }
-                        }
+                        legend: { position: 'top', labels: { color: '#cbd5e1', font: { size: 11 } } }
                     },
                     scales: {
-                        x: {
-                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
-                            ticks: { color: '#94a3b8' }
-                        },
-                        y: {
-                            grid: { color: 'rgba(255, 255, 255, 0.04)' },
-                            ticks: { color: '#94a3b8', precision: 0 }
-                        }
+                        x: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#94a3b8' } },
+                        y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#94a3b8', precision: 0 } }
                     }
                 }
             });
