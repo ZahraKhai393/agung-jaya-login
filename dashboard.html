@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body, .box-card, header, .dropdown-box, .dropdown-item {
+        body, .box-card, header, .dropdown-box, .dropdown-item, .theme-btn {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         .dropdown-menu {
@@ -81,10 +81,10 @@
 
         <!-- Kanan: Tombol Tema & Logout -->
         <div class="flex items-center space-x-3">
-            <button onclick="toggleTheme()" id="themeToggleBtn" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition">
+            <button onclick="toggleTheme()" id="themeToggleBtn" class="theme-btn w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition">
                 <i id="themeIcon" class="fa-solid fa-sun text-xs text-amber-400"></i>
             </button>
-            <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs hover:bg-slate-800 transition flex items-center space-x-2">
+            <a href="index.html" id="logoutBtn" class="theme-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs hover:bg-slate-800 transition flex items-center space-x-2">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <span>Logout</span>
             </a>
@@ -243,6 +243,7 @@
             const cards = document.querySelectorAll('.box-card');
             const dropdowns = document.querySelectorAll('.dropdown-box');
             const dropdownItems = document.querySelectorAll('.dropdown-item');
+            const themeBtns = document.querySelectorAll('.theme-btn');
 
             const isDark = body.classList.contains('bg-slate-950');
 
@@ -263,6 +264,13 @@
                 dropdownItems.forEach(item => {
                     item.className = "dropdown-item block px-3 py-2 rounded-md hover:bg-slate-100 hover:text-slate-900";
                 });
+                themeBtns.forEach(btn => {
+                    btn.className = "theme-btn w-9 h-9 rounded-lg bg-white border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition shadow-sm text-slate-700";
+                    // Khusus tombol logout (yang punya teks)
+                    if(btn.id === 'logoutBtn') {
+                        btn.className = "theme-btn px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs hover:bg-slate-100 transition flex items-center space-x-2 shadow-sm text-slate-700";
+                    }
+                });
             } else {
                 // Mode Gelap (Dark Mode)
                 body.className = "min-h-screen bg-slate-950 text-slate-100";
@@ -279,6 +287,12 @@
                 });
                 dropdownItems.forEach(item => {
                     item.className = "dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white";
+                });
+                themeBtns.forEach(btn => {
+                    btn.className = "theme-btn w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition text-slate-100";
+                    if(btn.id === 'logoutBtn') {
+                        btn.className = "theme-btn px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs hover:bg-slate-800 transition flex items-center space-x-2 text-slate-100";
+                    }
                 });
             }
         }
