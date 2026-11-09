@@ -44,40 +44,25 @@
 
         <!-- Menu Navigasi Tengah -->
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
-            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Inventory</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Jadwal</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Pengeluaran</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Laporan</a>
+            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Dashboard</a>
+            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Inventory</a>
+            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Jadwal</a>
+            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Pengeluaran</a>
+            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Laporan</a>
             
             <!-- Dropdown Buat Dokumen -->
             <div class="relative group">
-                <button class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1">
+                <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1">
                     <span>Buat Dokumen</span>
                     <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
-                <div class="dropdown-menu p-1.5 space-y-1 text-xs bg-[#161b22] border border-slate-700 rounded-xl shadow-2xl">
-                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Surat Penawaran Harga<br><span class="text-[10px] text-slate-500">Buat SPH baru</span></a>
-                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Invoice<br><span class="text-[10px] text-slate-500">Buat invoice baru</span></a>
-                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Surat Jalan<br><span class="text-[10px] text-slate-500">Buat surat jalan</span></a>
-                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Purchase Order<br><span class="text-[10px] text-slate-500">Buat PO baru</span></a>
+                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl">
+                    <a href="sph.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Penawaran Harga<br><span class="text-[10px] opacity-60">Buat SPH baru</span></a>
+                    <a href="invoice.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Invoice<br><span class="text-[10px] opacity-60">Buat invoice baru</span></a>
+                    <a href="surat-jalan.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Jalan<br><span class="text-[10px] opacity-60">Buat surat jalan</span></a>
+                    <a href="po.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Purchase Order<br><span class="text-[10px] opacity-60">Buat PO baru</span></a>
                 </div>
             </div>
-
-            <!-- Dropdown Riwayat (Sesuai Keinginanmu) -->
-            <div class="relative group">
-                <button class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1">
-                    <span>Riwayat</span>
-                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
-                </button>
-                <div class="dropdown-menu p-1.5 space-y-1 text-xs bg-[#161b22] border border-slate-700 rounded-xl shadow-2xl">
-                    <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat SPH<br><span class="text-[10px] text-slate-500">Semua penawaran harga</span></a>
-                    <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Invoice<br><span class="text-[10px] text-slate-500">Semua invoice</span>[cite: 13]</a>
-                    <a href="riwayat-surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat Surat Jalan<br><span class="text-[10px] text-slate-500">Semua surat jalan</span>[cite: 13]</a>
-                    <a href="riwayat-po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300 hover:text-white">Riwayat PO<br><span class="text-[10px] text-slate-500">Semua purchase order</span>[cite: 13]</a>
-                </div>
-            </div>
-        </nav>
 
             <!-- Dropdown Riwayat -->
             <div class="relative group">
