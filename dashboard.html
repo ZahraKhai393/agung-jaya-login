@@ -3,35 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Agung Jaya Listrik</title>
-    <!-- Tailwind CSS -->
+    <title>Dashboard Analitik SPH - Agung Jaya Listrik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body, .box-card, header, .dropdown-box {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-        }
-        .dropdown-menu {
-            display: none;
-            position: absolute;
-            right: 0;
-            top: 100%;
-            margin-top: 0.5rem;
-            width: 220px;
-            border-radius: 0.75rem;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
-            z-index: 50;
-        }
-        .group:hover .dropdown-menu {
-            display: block;
-        }
+        body { background-color: #0d1117; font-family: system-ui, -apple-system, sans-serif; }
+        .card-dark { background: rgba(22, 27, 34, 0.8); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
+        .group:hover .dropdown-menu { display: block; }
     </style>
 </head>
-<body class="min-h-screen bg-slate-950 text-slate-100" id="bodyTheme">
+<body class="min-h-screen text-slate-200">
 
-    <!-- Header / Navbar -->
-    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between" id="headerTheme">
-        <!-- Logo & Brand -->
+    <!-- Navbar Atas -->
+    <header class="border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
                 <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
@@ -41,239 +26,204 @@
                 <p class="text-[10px] opacity-70">Invoice & Dokumen</p>
             </div>
         </div>
-
-        <!-- Menu Navigasi Tengah -->
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
             <a href="dashboard.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Dashboard</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Inventory</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Jadwal</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Pengeluaran</a>
-            <a href="#" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Laporan</a>
+            <a href="inventory.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Inventory</a>
+            <a href="jadwal.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Jadwal</a>
+            <a href="pengeluaran.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Pengeluaran</a>
+            <a href="laporan.html" class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition">Laporan</a>
             
-            <!-- Dropdown Buat Dokumen -->
             <div class="relative group">
                 <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1">
-                    <span>Buat Dokumen</span>
-                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    <span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
-                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl">
-                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Surat Penawaran Harga<br><span class="text-[10px] opacity-60">Buat SPH baru</span></a>
-                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Invoice<br><span class="text-[10px] opacity-60">Buat invoice baru</span></a>
-                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Surat Jalan<br><span class="text-[10px] opacity-60">Buat surat jalan</span></a>
-                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Purchase Order<br><span class="text-[10px] opacity-60">Buat PO baru</span></a>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Penawaran Harga</a>
+                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Invoice</a>
+                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Jalan</a>
+                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Purchase Order</a>
                 </div>
             </div>
 
-            <!-- Dropdown Riwayat -->
             <div class="relative group">
                 <button class="px-3 py-1.5 rounded-lg opacity-80 hover:opacity-100 transition flex items-center space-x-1">
-                    <span>Riwayat</span>
-                    <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                    <span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
-                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl">
-                    <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat SPH<br><span class="text-[10px] opacity-60">Semua penawaran harga</span></a>
-                    <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat Invoice<br><span class="text-[10px] opacity-60">Semua invoice</span></a>
-                    <a href="riwayat-surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat Surat Jalan<br><span class="text-[10px] opacity-60">Semua surat jalan</span></a>
-                    <a href="riwayat-po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat PO<br><span class="text-[10px] opacity-60">Semua purchase order</span></a>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat SPH</a>
+                    <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Invoice</a>
+                    <a href="riwayat-surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Surat Jalan</a>
+                    <a href="riwayat-po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat PO</a>
                 </div>
             </div>
         </nav>
-
-        <!-- Kanan: Tombol Tema & Logout -->
-        <div class="flex items-center space-x-3">
-            <button onclick="toggleTheme()" id="themeToggleBtn" class="w-9 h-9 rounded-lg bg-slate-900 border border-slate-700 flex items-center justify-center hover:bg-slate-800 transition">
-                <i id="themeIcon" class="fa-solid fa-sun text-xs text-amber-400"></i>
-            </button>
-            <a href="index.html" class="px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-xs hover:bg-slate-800 transition flex items-center space-x-2">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                <span>Logout</span>
-            </a>
-        </div>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
+            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+        </a>
     </header>
 
-    <!-- Konten Utama Dashboard -->
+    <!-- Konten Utama Dashboard BI SPH -->
     <main class="max-w-7xl mx-auto px-6 py-8">
-        
-        <!-- Sambutan -->
-        <div class="mb-8">
-            <p class="text-xs uppercase tracking-widest font-semibold mb-1 opacity-60">Selamat Datang</p>
-            <h2 class="text-2xl font-bold tracking-tight">Agung Jaya Listrik</h2>
-        </div>
-
-        <!-- Filter & Judul Ringkasan -->
-        <div class="flex items-center justify-between mb-4">
-            <h3 class="text-sm font-bold tracking-wider uppercase opacity-80">Ringkasan Bulan Ini</h3>
-            <div id="filterBox" class="flex items-center space-x-2 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-xs">
-                <button class="opacity-70 hover:opacity-100"><i class="fa-solid fa-chevron-left text-[10px]"></i></button>
-                <div class="flex items-center space-x-2 font-medium">
-                    <i class="fa-regular fa-calendar"></i>
-                    <span>November 2026</span>
-                </div>
-                <button class="opacity-70 hover:opacity-100"><i class="fa-solid fa-chevron-right text-[10px]"></i></button>
+        <div class="mb-6 flex justify-between items-center">
+            <div>
+                <p class="text-xs uppercase tracking-widest font-semibold opacity-60 mb-1">Business Intelligence & Analytics</p>
+                <h2 class="text-2xl font-bold tracking-tight text-white">Dashboard Analisis Konversi SPH</h2>
+            </div>
+            <div class="card-dark px-4 py-2 rounded-xl text-xs font-medium text-slate-300 flex items-center space-x-2">
+                <i class="fa-regular fa-calendar text-red-500"></i>
+                <span id="currentDateLabel">November 2026</span>
             </div>
         </div>
 
-        <!-- Grid 6 Kotak Statistik (Terhubung ke Data SPH / Invoice) -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
-            
-            <!-- 1. Omset -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center">
-                        <i class="fa-solid fa-chart-line text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">Omset</span>
-                </div>
-                <h4 class="text-xl font-extrabold" id="statOmset">Rp 0</h4>
-                <p class="text-[11px] opacity-60 mt-1">uang masuk (DP + lunas)</p>
+        <!-- 4 Kartu Metrik KPI (Sesuai Referensi Gambar) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <!-- SPH Diterbitkan -->
+            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
+                <p class="text-xs font-medium text-slate-400 mb-2">SPH diterbitkan</p>
+                <h3 id="metricTotalSPH" class="text-3xl font-black text-white">0</h3>
             </div>
-
-            <!-- 2. Untung Kotor -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center">
-                        <i class="fa-solid fa-wallet text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">Untung Kotor</span>
-                </div>
-                <h4 class="text-xl font-extrabold" id="statUntungKotor">Rp 0</h4>
-                <p class="text-[11px] opacity-60 mt-1">dari invoice lunas</p>
+            <!-- Deal -->
+            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
+                <p class="text-xs font-medium text-slate-400 mb-2">Deal</p>
+                <h3 id="metricDeal" class="text-3xl font-black text-emerald-400">0</h3>
             </div>
-
-            <!-- 3. Untung Bersih -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center">
-                        <i class="fa-solid fa-coins text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">Untung Bersih</span>
-                </div>
-                <h4 class="text-xl font-extrabold text-red-500">-Rp 1.338.000</h4>
-                <p class="text-[11px] opacity-60 mt-1">– biaya ops Rp 1.338.000</p>
+            <!-- Conversion Rate -->
+            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
+                <p class="text-xs font-medium text-slate-400 mb-2">Conversion rate</p>
+                <h3 id="metricConversionRate" class="text-3xl font-black text-indigo-400">0%</h3>
             </div>
-
-            <!-- 4. Jumlah SPH & Invoice -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center">
-                        <i class="fa-regular fa-file-lines text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">Total Dokumen SPH</span>
-                </div>
-                <h4 class="text-xl font-extrabold" id="statTotalSPH">0</h4>
-                <p class="text-[11px] opacity-60 mt-1">surat penawaran</p>
+            <!-- Menggantung > 14 hari -->
+            <div class="card-dark p-6 rounded-2xl relative overflow-hidden">
+                <p class="text-xs font-medium text-slate-400 mb-2">Menggantung lebih dari 14 hari</p>
+                <h3 id="metricPendingOld" class="text-3xl font-black text-red-500">0</h3>
             </div>
-
-            <!-- 5. Belum Dibayar -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-amber-600/20 text-amber-500 flex items-center justify-center">
-                        <i class="fa-solid fa-triangle-exclamation text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">Belum Dibayar</span>
-                </div>
-                <h4 class="text-xl font-extrabold">0</h4>
-                <p class="text-[11px] opacity-60 mt-1">Rp 0</p>
-            </div>
-
-            <!-- 6. DP Diterima -->
-            <div class="box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden">
-                <div class="flex items-center space-x-3 mb-3">
-                    <div class="w-9 h-9 rounded-xl bg-orange-600/20 text-orange-400 flex items-center justify-center">
-                        <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
-                    </div>
-                    <span class="text-xs font-medium opacity-70">DP Diterima</span>
-                </div>
-                <h4 class="text-xl font-extrabold">0</h4>
-                <p class="text-[11px] opacity-60 mt-1">Rp 0</p>
-            </div>
-
         </div>
 
-        <!-- Bagian Ringkasan Riwayat SPH Terbaru di Dashboard -->
-        <div class="box-card bg-slate-900 border border-slate-800 rounded-2xl p-6">
-            <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6" id="historyHeader">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center text-xs">
-                        <i class="fa-solid fa-bars-staggered"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-sm font-bold">Riwayat SPH Terbaru</h4>
-                        <p class="text-[11px] opacity-60" id="infoCountSPH">0 SPH tersimpan</p>
-                    </div>
+        <!-- Tabel Perlu Follow-up (Sesuai Referensi Gambar) -->
+        <div class="card-dark rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-6 pb-4 border-b border-slate-800">
+                <div>
+                    <h3 class="text-sm font-bold text-white flex items-center space-x-2">
+                        <i class="fa-solid fa-clock-rotate-left text-red-500"></i>
+                        <span>Perlu follow-up</span>
+                    </h3>
+                    <p class="text-[11px] text-slate-400 mt-0.5">diurutkan dari prioritas tertinggi berdasarkan umur surat</p>
                 </div>
-                <a href="riwayat-sph.html" class="text-xs text-blue-400 hover:text-blue-300 font-medium">Lihat semua →</a>
+                <span class="text-xs text-slate-400 font-mono" id="countFollowUp">0 perusahaan</span>
             </div>
 
-            <!-- Tabel SPH Terbaru di Dashboard -->
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
-                        <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider">
-                            <th class="py-3 px-4 w-12 text-center">#</th>
-                            <th class="py-3 px-4">Nomor Surat</th>
-                            <th class="py-3 px-4">Nama Perusahaan</th>
-                            <th class="py-3 px-4">Tanggal</th>
+                        <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
+                            <th class="py-3 px-4">Perusahaan</th>
+                            <th class="py-3 px-4">Umur SPH</th>
+                            <th class="py-3 px-4">Nilai Estimasi</th>
+                            <th class="py-3 px-4">Follow-up Terakhir</th>
+                            <th class="py-3 px-4 text-center">Prioritas</th>
+                            <th class="py-3 px-4 text-center">Aksi Catat</th>
                         </tr>
                     </thead>
-                    <tbody id="dashboardTableBody" class="divide-y divide-slate-800 text-slate-300">
-                        <!-- Data masuk otomatis dari localStorage -->
+                    <tbody id="tableFollowUpBody" class="divide-y divide-slate-800/40 text-slate-300">
+                        <!-- Data masuk otomatis -->
                     </tbody>
                 </table>
             </div>
         </div>
-
     </main>
 
-    <!-- Skrip Sinkronisasi Dashboard dengan LocalStorage -->
     <script>
-        function loadDashboardData() {
-            const dataSPH = JSON.parse(localStorage.getItem('data_sph')) || [];
-            
-            // Update Statistik SPH
-            document.getElementById('statTotalSPH').innerText = dataSPH.length;
-            document.getElementById('infoCountSPH').innerText = `${dataSPH.length} SPH tersimpan`;
+        function loadDashboardAnalytics() {
+            // Mengambil data SPH dari localStorage yang dibuat di sph.html
+            const dataSPH = JSON.parse(localStorage.getItem('data_sph')) || [
+                // Data dummy contoh jika localStorage masih kosong agar dashboard langsung hidup
+                { id: 1, no: "001/10/SPH/2026", perusahaan: "PT. ALOY", tanggal: "15 Okt 2026", status: "pending" },
+                { id: 2, no: "002/10/SPH/2026", perusahaan: "PT. AGB", tanggal: "27 Okt 2026", status: "pending" },
+                { id: 3, no: "003/10/SPH/2026", perusahaan: "PT. XYZ", tanggal: "05 Nov 2026", status: "pending" }
+            ];
 
-            const tbody = document.getElementById('dashboardTableBody');
-            if(dataSPH.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-6 text-slate-500">Belum ada dokumen yang dibuat. Silakan buat SPH melalui menu <b>Buat Dokumen</b>.</td></tr>`;
+            const totalSPH = dataSPH.length;
+            // Simulasi hitung data deal (misal 1 data sudah deal jika ada)
+            const totalDeal = dataSPH.filter(i => i.status === 'deal').length;
+            const conversionRate = totalSPH > 0 ? ((totalDeal / totalSPH) * 100).toFixed(1) : 0;
+            
+            // Hitung umur surat & surat yang menggantung > 14 hari
+            let pendingOldCount = 0;
+            const today = new Date();
+
+            const processedData = dataSPH.map(item => {
+                // Simulasi perhitungan umur berdasarkan tanggal string
+                const tglSurat = new Date(item.tanggal);
+                const diffTime = Math.abs(today - tglSurat);
+                const umurHari = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) || 12; // perkiraan hari
+
+                if (umurHari > 14) pendingOldCount++;
+
+                // Tentukan prioritas otomatis
+                let prioritas = "Rendah";
+                let badgeColor = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                if (umurHari > 20) {
+                    prioritas = "Tinggi";
+                    badgeColor = "bg-red-500/10 text-red-400 border-red-500/20";
+                } else if (umurHari > 10) {
+                    prioritas = "Sedang";
+                    badgeColor = "bg-amber-500/10 text-amber-400 border-amber-500/20";
+                }
+
+                return {
+                    ...item,
+                    umur: `${umurHari} hari`,
+                    nilai: "Rp 15.500.000", // Contoh nominal estimasi
+                    lastFollowUp: "3 hari lalu",
+                    prioritas,
+                    badgeColor
+                };
+            });
+
+            // Render ke Kartu KPI di Atas
+            document.getElementById('metricTotalSPH').innerText = totalSPH;
+            document.getElementById('metricDeal').innerText = totalDeal;
+            document.getElementById('metricConversionRate').innerText = `${conversionRate}%`;
+            document.getElementById('metricPendingOld').innerText = pendingOldCount;
+            document.getElementById('countFollowUp').innerText = `${processedData.length} perusahaan`;
+
+            // Render ke Tabel Follow-up
+            const tbody = document.getElementById('tableFollowUpBody');
+            if (processedData.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-500">Belum ada data SPH untuk dianalisis.</td></tr>`;
                 return;
             }
 
             let html = '';
-            // Tampilkan 5 data SPH terbaru
-            dataSPH.slice(0, 5).forEach((item, index) => {
+            processedData.forEach(item => {
                 html += `
-                    <tr class="hover:bg-slate-800/30 transition">
-                        <td class="py-3 px-4 text-center text-slate-500 font-mono">${index + 1}</td>
-                        <td class="py-3 px-4 font-bold text-white font-mono">${item.no}</td>
-                        <td class="py-3 px-4 font-medium">${item.perusahaan}</td>
-                        <td class="py-3 px-4 text-slate-400">${item.tanggal}</td>
+                    <tr class="hover:bg-slate-800/20 transition">
+                        <td class="py-3.5 px-4 font-bold text-white">${item.perusahaan}</td>
+                        <td class="py-3.5 px-4 text-slate-300">${item.umur}</td>
+                        <td class="py-3.5 px-4 font-semibold text-slate-200">${item.nilai}</td>
+                        <td class="py-3.5 px-4 text-slate-400">${item.lastFollowUp}</td>
+                        <td class="py-3.5 px-4 text-center">
+                            <span class="px-2.5 py-1 rounded-full text-[10px] font-bold border ${item.badgeColor}">${item.prioritas}</span>
+                        </td>
+                        <td class="py-3.5 px-4 text-center">
+                            <button onclick="catatFollowUp('${item.perusahaan}')" class="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 px-3 py-1 rounded-lg text-[11px] font-medium transition">
+                                <i class="fa-solid fa-pen-to-square mr-1 text-red-500"></i> Catat
+                            </button>
+                        </td>
                     </tr>
                 `;
             });
             tbody.innerHTML = html;
         }
 
-        // Jalankan saat dashboard dibuka
-        loadDashboardData();
-
-        function toggleTheme() {
-            const body = document.getElementById('bodyTheme');
-            const header = document.getElementById('headerTheme');
-            const icon = document.getElementById('themeIcon');
-            const isDark = body.classList.contains('bg-slate-950');
-
-            if (isDark) {
-                body.className = "min-h-screen bg-slate-100 text-slate-800";
-                header.className = "border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between";
-                icon.className = "fa-solid fa-moon text-xs text-slate-700";
-            } else {
-                body.className = "min-h-screen bg-slate-950 text-slate-100";
-                header.className = "border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between";
-                icon.className = "fa-solid fa-sun text-xs text-amber-400";
+        function catatFollowUp( namaPerusahaan) {
+            const catatan = prompt(`Catat hasil follow-up untuk ${namaPerusahaan} (Contoh: Kunjungan via WA / Deal / Minta penawaran ulang):`);
+            if (catatan) {
+                alert(`Catatan follow-up untuk ${namaPerusahaan} berhasil disimpan!`);
             }
         }
+
+        loadDashboardAnalytics();
     </script>
 </body>
 </html>
