@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body, .box-card, header, .dropdown-box {
+        body, .box-card, header, .dropdown-box, .dropdown-item {
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
         .dropdown-menu {
@@ -56,11 +56,11 @@
                     <span>Buat Dokumen</span>
                     <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
-                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200">
-                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Surat Penawaran Harga<br><span class="text-[10px] opacity-60">Buat SPH baru</span></a>
-                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Invoice<br><span class="text-[10px] opacity-60">Buat invoice baru</span></a>
-                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Surat Jalan<br><span class="text-[10px] opacity-60">Buat surat jalan</span></a>
-                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Surat Purchase Order<br><span class="text-[10px] opacity-60">Buat PO baru</span></a>
+                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl">
+                    <a href="sph.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Penawaran Harga<br><span class="text-[10px] opacity-60">Buat SPH baru</span></a>
+                    <a href="invoice.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Invoice<br><span class="text-[10px] opacity-60">Buat invoice baru</span></a>
+                    <a href="surat-jalan.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Jalan<br><span class="text-[10px] opacity-60">Buat surat jalan</span></a>
+                    <a href="po.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Surat Purchase Order<br><span class="text-[10px] opacity-60">Buat PO baru</span></a>
                 </div>
             </div>
 
@@ -70,11 +70,11 @@
                     <span>Riwayat</span>
                     <i class="fa-solid fa-chevron-down text-[10px]"></i>
                 </button>
-                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200">
-                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat SPH<br><span class="text-[10px] opacity-60">Semua penawaran harga</span></a>
-                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat Invoice<br><span class="text-[10px] opacity-60">Semua invoice</span></a>
-                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat Surat Jalan<br><span class="text-[10px] opacity-60">Semua surat jalan</span></a>
-                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800">Riwayat PO<br><span class="text-[10px] opacity-60">Semua purchase order</span></a>
+                <div class="dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl">
+                    <a href="sph.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Riwayat SPH<br><span class="text-[10px] opacity-60">Semua penawaran harga</span></a>
+                    <a href="invoice.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Riwayat Invoice<br><span class="text-[10px] opacity-60">Semua invoice</span></a>
+                    <a href="surat-jalan.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Riwayat Surat Jalan<br><span class="text-[10px] opacity-60">Semua surat jalan</span></a>
+                    <a href="po.html" class="dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white">Riwayat PO<br><span class="text-[10px] opacity-60">Semua purchase order</span></a>
                 </div>
             </div>
         </nav>
@@ -232,7 +232,7 @@
 
     </main>
 
-    <!-- Skrip Pengalih Mode Gelap / Terang yang Sempurna -->
+    <!-- Skrip Pengalih Mode Gelap / Terang -->
     <script>
         function toggleTheme() {
             const body = document.getElementById('bodyTheme');
@@ -242,11 +242,12 @@
             const historyHeader = document.getElementById('historyHeader');
             const cards = document.querySelectorAll('.box-card');
             const dropdowns = document.querySelectorAll('.dropdown-box');
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
 
             const isDark = body.classList.contains('bg-slate-950');
 
             if (isDark) {
-                // Berubah ke Mode Terang
+                // Mode Terang (Light Mode)
                 body.className = "min-h-screen bg-slate-100 text-slate-800";
                 header.className = "border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between";
                 icon.className = "fa-solid fa-moon text-xs text-slate-700";
@@ -259,8 +260,11 @@
                 dropdowns.forEach(dd => {
                     dd.className = "dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-white border border-slate-200 text-slate-800 shadow-xl";
                 });
+                dropdownItems.forEach(item => {
+                    item.className = "dropdown-item block px-3 py-2 rounded-md hover:bg-slate-100 hover:text-slate-900";
+                });
             } else {
-                // Berubah kembali ke Mode Gelap
+                // Mode Gelap (Dark Mode)
                 body.className = "min-h-screen bg-slate-950 text-slate-100";
                 header.className = "border-b border-slate-800 bg-slate-900/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between";
                 icon.className = "fa-solid fa-sun text-xs text-amber-400";
@@ -271,7 +275,10 @@
                     card.className = "box-card bg-slate-900 border border-slate-800 p-5 rounded-2xl relative overflow-hidden";
                 });
                 dropdowns.forEach(dd => {
-                    dd.className = "dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200";
+                    dd.className = "dropdown-menu dropdown-box p-1.5 space-y-1 text-xs bg-slate-900 border border-slate-700 text-slate-200 shadow-xl";
+                });
+                dropdownItems.forEach(item => {
+                    item.className = "dropdown-item block px-3 py-2 rounded-md hover:bg-slate-800 hover:text-white";
                 });
             }
         }
