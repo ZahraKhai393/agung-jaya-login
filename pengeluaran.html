@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengeluaran - Agung Jaya Listrik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .card-dark { background: rgba(22, 27, 34, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
+        .group:hover .dropdown-menu { display: block; }
+        .glass-input { background: rgba(15, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: inherit; }
+    </style>
+</head>
+<body class="min-h-screen bg-[#0d1117] text-slate-200">
+
+    <!-- NAVBAR UTAMA -->
+    <header class="border-b border-slate-800 bg-[#0d1117]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow"><img src="logoAJL.png" class="w-full h-full object-contain"></div>
+            <div><h1 class="font-bold text-sm">Agung Jaya Listrik</h1><p class="text-[10px] opacity-70">Invoice & Dokumen</p></div>
+        </div>
+        <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
+            <a href="dashboard.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
+            <a href="inventory.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Inventory</a>
+            <a href="jadwal.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Jadwal</a>
+            <a href="pengeluaran.html" class="px-3.5 py-1.5 rounded-lg bg-red-600/25 text-orange-500 font-semibold border border-orange-500/30">Pengeluaran</a>
+            <a href="laporan.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Laporan</a>
+            <div class="relative group">
+                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5"><span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Penawaran Harga</a>
+                    <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Invoice</a>
+                    <a href="surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Jalan</a>
+                    <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Purchase Order</a>
+                </div>
+            </div>
+            <div class="relative group">
+                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5"><span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <div class="dropdown-menu p-1.5 space-y-1 text-xs">
+                    <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat SPH</a>
+                    <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Invoice</a>
+                    <a href="riwayat-surat-jalan.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Surat Jalan</a>
+                    <a href="riwayat-po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat PO</a>
+                </div>
+            </div>
+        </nav>
+        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 flex items-center space-x-2"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
+        <div class="flex justify-between items-center">
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight">Pengeluaran</h2>
+                <p class="text-xs text-slate-400 mt-1">Catat dan pantau pengeluaran operasional bulanan</p>
+            </div>
+            <button onclick="bukaModalPengeluaran()" class="bg-orange-600 hover:bg-orange-500 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition shadow-lg shadow-orange-600/30 flex items-center space-x-2">
+                <i class="fa-solid fa-plus"></i><span>Tambah Pengeluaran</span>
+            </button>
+        </div>
+
+        <!-- Kartu Ringkasan Pengeluaran -->
+        <div class="card-dark rounded-2xl p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+                <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Total Pengeluaran Bulan Ini</p>
+                <h3 id="totalPengeluaran" class="text-3xl font-black text-orange-400">Rp 13.500.000</h3>
+            </div>
+            <div>
+                <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Jumlah Transaksi</p>
+                <h3 id="totalTransaksi" class="text-3xl font-black text-white">4 Transaksi</h3>
+            </div>
+        </div>
+
+        <!-- Kurva Grafik Pengeluaran -->
+        <div class="card-dark rounded-2xl p-6">
+            <h3 class="text-sm font-bold text-white mb-4 flex items-center space-x-2">
+                <i class="fa-solid fa-chart-area text-orange-400"></i>
+                <span>Kurva Tren Pengeluaran 2026</span>
+            </h3>
+            <div class="relative h-[300px] w-full">
+                <canvas id="pengeluaranChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Tambah Pengeluaran -->
+    <div id="modalPengeluaran" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-md p-6 bg-[#161b22]">
+            <h3 class="text-lg font-bold mb-4">Catat Pengeluaran Baru</h3>
+            <div class="space-y-3 text-xs">
+                <div><label class="block text-slate-400 mb-1">Keterangan / Keperluan</label><input type="text" id="ketBiaya" class="glass-input w-full rounded-xl px-3 py-2" placeholder="Contoh: Biaya Kirim Ekspedisi"></div>
+                <div><label class="block text-slate-400 mb-1">Jumlah (Rp)</label><input type="number" id="jumlahBiaya" class="glass-input w-full rounded-xl px-3 py-2" placeholder="1500000"></div>
+                <div><label class="block text-slate-400 mb-1">Tanggal</label><input type="date" id="tglBiaya" class="glass-input w-full rounded-xl px-3 py-2"></div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button onclick="tutupModalPengeluaran()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanBiaya()" class="px-4 py-2 rounded-xl bg-orange-600 text-white text-xs font-semibold">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function bukaModalPengeluaran() { document.getElementById('modalPengeluaran').classList.remove('hidden'); }
+        function tutupModalPengeluaran() { document.getElementById('modalPengeluaran').classList.add('hidden'); }
+
+        function simpanBiaya() {
+            const ket = document.getElementById('ketBiaya').value.trim();
+            const jumlah = parseFloat(document.getElementById('jumlahBiaya').value) || 0;
+            if (!ket || jumlah <= 0) { alert('Isi keterangan dan jumlah dengan benar!'); return; }
+            alert('Pengeluaran berhasil dicatat!');
+            tutupModalPengeluaran();
+        }
+
+        // Render Grafik Kurva Pengeluaran
+        const ctx = document.getElementById('pengeluaranChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
+                datasets: [{
+                    label: 'Pengeluaran (Rp)',
+                    data: [1000000, 1500000, 800000, 1200000, 950000, 1300000, 3500000, 1100000, 900000, 1400000, 13500000, 0],
+                    borderColor: '#f97316',
+                    backgroundColor: 'rgba(249, 115, 22, 0.1)',
+                    borderWidth: 3,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

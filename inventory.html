@@ -1,34 +1,46 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventory - Agung Jaya Listrik</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = { darkMode: 'class', theme: { extend: { colors: { primary: '#ef4444' } } } }
+    </script>
     <style>
-        body { background-color: #0d1117; font-family: system-ui, -apple-system, sans-serif; }
-        .card-dark { background: rgba(22, 27, 34, 0.8); border: 1px solid rgba(255, 255, 255, 0.06); }
-        .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
+        .card-dark { background: rgba(22, 27, 34, 0.85); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .dropdown-menu { display: none; position: absolute; right: 0; top: 100%; margin-top: 0.5rem; width: 220px; border-radius: 0.75rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4); z-index: 50; background: #161b22; border: 1px solid rgba(255,255,255,0.1); }
         .group:hover .dropdown-menu { display: block; }
-        .glass-input { background: rgba(15, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
+        .glass-input { background: rgba(15, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: inherit; }
     </style>
 </head>
-<body class="min-h-screen text-slate-200">
+<body class="min-h-screen bg-[#0d1117] text-slate-200 transition-colors duration-300" id="bodyTag">
+
     <!-- NAVBAR UTAMA -->
     <header class="border-b border-slate-800 bg-[#0d1117]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
-            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow"><img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain"></div>
-            <div><h1 class="text-white font-bold text-sm tracking-wide">Agung Jaya Listrik</h1><p class="text-[10px] text-slate-400">Invoice & Dokumen</p></div>
+            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
+                <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+                <h1 class="font-bold text-sm tracking-wide">Agung Jaya Listrik</h1>
+                <p class="text-[10px] opacity-70">Invoice & Dokumen</p>
+            </div>
         </div>
+
         <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
             <a href="dashboard.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
             <a href="inventory.html" class="px-3.5 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Inventory</a>
             <a href="jadwal.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Jadwal</a>
             <a href="pengeluaran.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Pengeluaran</a>
             <a href="laporan.html" class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Laporan</a>
+            
             <div class="relative group">
-                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5"><span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5">
+                    <span>Buat Dokumen</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
                 <div class="dropdown-menu p-1.5 space-y-1 text-xs">
                     <a href="sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Surat Penawaran Harga</a>
                     <a href="invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Invoice</a>
@@ -36,8 +48,11 @@
                     <a href="po.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Purchase Order</a>
                 </div>
             </div>
+
             <div class="relative group">
-                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5"><span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i></button>
+                <button class="px-3.5 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition flex items-center space-x-1.5">
+                    <span>Riwayat</span><i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
                 <div class="dropdown-menu p-1.5 space-y-1 text-xs">
                     <a href="riwayat-sph.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat SPH</a>
                     <a href="riwayat-invoice.html" class="block px-3 py-2 rounded-md hover:bg-slate-800 text-slate-300">Riwayat Invoice</a>
@@ -46,31 +61,133 @@
                 </div>
             </div>
         </nav>
-        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2"><i class="fa-solid fa-right-from-bracket"></i><span>Logout</span></a>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleTheme()" class="p-2 rounded-lg card-dark text-slate-300 hover:text-white text-xs" title="Ganti Tema"><i class="fa-solid fa-circle-half-stroke"></i></button>
+            <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
+                <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
+            </a>
+        </div>
     </header>
 
     <main class="max-w-7xl mx-auto px-6 py-8 space-y-6">
         <div class="flex justify-between items-center">
-            <div><h2 class="text-2xl font-bold text-white tracking-tight">Inventory & Stok Material</h2><p class="text-xs text-slate-400 mt-1">Kelola ketersediaan barang kelistrikan dan kabel</p></div>
+            <div>
+                <h2 class="text-2xl font-bold tracking-tight">Inventory & Stok Material</h2>
+                <p class="text-xs text-slate-400 mt-1">Kelola ketersediaan material kelistrikan dan kabel secara real-time</p>
+            </div>
+            <button onclick="bukaModalBarang()" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition shadow-lg shadow-red-600/30 flex items-center space-x-2">
+                <i class="fa-solid fa-plus"></i><span>Tambah Barang</span>
+            </button>
         </div>
-        <div class="card-dark rounded-2xl p-6">
+
+        <!-- Tabel Inventory -->
+        <div class="card-dark rounded-2xl overflow-hidden">
             <table class="w-full text-left text-xs">
                 <thead>
-                    <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] bg-slate-900/40">
-                        <th class="py-3 px-4">No</th>
-                        <th class="py-3 px-4">Nama Material / Barang</th>
-                        <th class="py-3 px-4 text-center">Stok Tersedia</th>
-                        <th class="py-3 px-4">Satuan</th>
-                        <th class="py-3 px-4 text-right">Harga Satuan</th>
+                    <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] bg-slate-900/50">
+                        <th class="py-4 px-6">No</th>
+                        <th class="py-4 px-6">Nama Material / Barang</th>
+                        <th class="py-4 px-6 text-center">Stok Tersedia</th>
+                        <th class="py-4 px-6">Satuan</th>
+                        <th class="py-4 px-6 text-right">Harga Satuan</th>
+                        <th class="py-4 px-6 text-center">Aksi</th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-slate-800 text-slate-300">
-                    <tr><td class="py-3 px-4">1</td><td class="py-3 px-4 font-semibold text-white">Cable Ladder 100x100mm</td><td class="py-3 px-4 text-center text-emerald-400 font-bold">120</td><td class="py-3 px-4">meter</td><td class="py-3 px-4 text-right">Rp 75.000</td></tr>
-                    <tr><td class="py-3 px-4">2</td><td class="py-3 px-4 font-semibold text-white">Kabel XLPE 1Cx3x240mm</td><td class="py-3 px-4 text-center text-emerald-400 font-bold">450</td><td class="py-3 px-4">meter</td><td class="py-3 px-4 text-right">Rp 175.000</td></tr>
-                    <tr><td class="py-3 px-4">3</td><td class="py-3 px-4 font-semibold text-white">LBS Motorized</td><td class="py-3 px-4 text-center text-amber-400 font-bold">5</td><td class="py-3 px-4">set</td><td class="py-3 px-4 text-right">Rp 70.000.000</td></tr>
+                <tbody id="tabelInventory" class="divide-y divide-slate-800/50 text-slate-300">
+                    <!-- Data dimuat dinamis -->
                 </tbody>
             </table>
         </div>
     </main>
+
+    <!-- Modal Tambah Barang -->
+    <div id="modalBarang" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-md p-6 bg-[#161b22]">
+            <h3 class="text-lg font-bold mb-4">Tambah Material Baru</h3>
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">Nama Barang</label>
+                    <input type="text" id="namaBarang" class="glass-input w-full rounded-xl px-3 py-2" placeholder="Contoh: Kabel NYY 4x10mm">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-slate-400 mb-1">Stok Awal</label>
+                        <input type="number" id="stokBarang" class="glass-input w-full rounded-xl px-3 py-2" value="10">
+                    </div>
+                    <div>
+                        <label class="block text-slate-400 mb-1">Satuan</label>
+                        <input type="text" id="satuanBarang" class="glass-input w-full rounded-xl px-3 py-2" value="meter">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Harga Satuan (Rp)</label>
+                    <input type="number" id="hargaBarang" class="glass-input w-full rounded-xl px-3 py-2" value="50000">
+                </div>
+            </div>
+            <div class="flex justify-end space-x-3 mt-6">
+                <button onclick="tutupModalBarang()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanBarang()" class="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-semibold">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let inventoryList = JSON.parse(localStorage.getItem('data_inventory')) || [
+            { id: 1, nama: "Cable Ladder 100x100mm", stok: 120, satuan: "meter", harga: 75000 },
+            { id: 2, nama: "Kabel XLPE 1Cx3x240mm", stok: 450, satuan: "meter", harga: 175000 },
+            { id: 3, nama: "LBS Motorized", stok: 5, satuan: "set", harga: 70000000 }
+        ];
+
+        function renderInventory() {
+            const tbody = document.getElementById('tabelInventory');
+            tbody.innerHTML = inventoryList.map((item, index) => `
+                <tr class="hover:bg-slate-800/30 transition">
+                    <td class="py-4 px-6 font-mono text-slate-500">${index + 1}</td>
+                    <td class="py-4 px-6 font-semibold text-white">${item.nama}</td>
+                    <td class="py-4 px-6 text-center font-bold ${item.stok > 10 ? 'text-emerald-400' : 'text-amber-400'}">${item.stok}</td>
+                    <td class="py-4 px-6">${item.satuan}</td>
+                    <td class="py-4 px-6 text-right font-mono">Rp ${Number(item.harga).toLocaleString('id-ID')}</td>
+                    <td class="py-4 px-6 text-center">
+                        <button onclick="hapusBarang(${item.id})" class="text-slate-500 hover:text-red-400"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function bukaModalBarang() { document.getElementById('modalBarang').classList.remove('hidden'); }
+        function tutupModalBarang() { document.getElementById('modalBarang').classList.add('hidden'); }
+
+        function simpanBarang() {
+            const nama = document.getElementById('namaBarang').value.trim();
+            const stok = parseInt(document.getElementById('stokBarang').value) || 0;
+            const satuan = document.getElementById('satuanBarang').value.trim();
+            const harga = parseFloat(document.getElementById('hargaBarang').value) || 0;
+
+            if (!nama) { alert('Nama barang wajib diisi!'); return; }
+
+            inventoryList.push({ id: Date.now(), nama, stok, satuan, harga });
+            localStorage.setItem('data_inventory', JSON.stringify(inventoryList));
+            tutupModalBarang();
+            renderInventory();
+        }
+
+        function hapusBarang(id) {
+            if (confirm('Hapus material ini dari inventory?')) {
+                inventoryList = inventoryList.filter(i => i.id !== id);
+                localStorage.setItem('data_inventory', JSON.stringify(inventoryList));
+                renderInventory();
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.getElementById('bodyTag');
+            body.classList.toggle('dark');
+            body.classList.toggle('bg-slate-100');
+            body.classList.toggle('text-slate-800');
+        }
+
+        renderInventory();
+    </script>
 </body>
 </html>
