@@ -102,8 +102,10 @@
         </div>
     </main>
 
+    <!-- SCRIPT UTAMA DASHBOARD -->
     <script>
         let myChart = null;
+
         function handleExcelUpload(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -111,40 +113,77 @@
             reader.onload = function(e) {
                 const data = new Uint8Array(e.target.result);
                 const workbook = XLSX.read(data, { type: 'array' });
-                const jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
-                processAndRender(jsonData);
+                const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+                const jsonData = XLSX.utils.sheet_to_json(firstSheet);
+                
+                processAndRenderExcel(jsonData);
             };
             reader.readAsArrayBuffer(file);
         }
 
-        function processAndRender(dataList) {
-            let deal = new Array(12).fill(0), pending = new Array(12).fill(0), cancel = new Array(12).fill(0);
-            dataList.forEach((item, idx) => {
-                let m = idx % 12;
-                if (idx % 3 === 0) deal[m]++;
-                else if (idx % 3 === 1) pending[m]++;
-                else cancel[m]++;
+        function processAndRenderExcel(dataList) {
+            let totalSPH = dataList.length;
+            let totalDeal = 0;
+            let totalPending = 0;
+            let totalCancel = 0;
+
+            let dealBulan = new Array(12).fill(0);
+            let pendingBulan = new Array(12).fill(0);
+            let cancelBulan = new Array(12).fill(0);
+
+            dataList.forEach((row, idx) => {
+                let statusVal = String(row.Status || row.status || row.Keterangan || 'Pending').trim().toLowerCase();
+                
+                let bulanIdx = idx % 12;
+                if (row.Tanggal || row.tanggal) {
+                    let tgl = new Date(row.Tanggal || row.tanggal);
+                    if (!isNaN(tgl.getMonth())) bulanIdx = tgl.getMonth();
+                }
+
+                if (statusVal.includes('deal') || statusVal.includes('lunas')) {
+                    totalDeal++;
+                    dealBulan[bulanIdx]++;
+                } else if (statusVal.includes('cancel') || statusVal.includes('batal')) {
+                    totalCancel++;
+                    cancelBulan[bulanIdx]++;
+                } else {
+                    totalPending++;
+                    pendingBulan[bulanIdx]++;
+                }
             });
 
-            document.getElementById('statTotal').innerText = dataList.length;
-            document.getElementById('statDeal').innerText = deal.reduce((a,b)=>a+b,0);
-            document.getElementById('statPending').innerText = pending.reduce((a,b)=>a+b,0);
-            document.getElementById('statCancel').innerText = cancel.reduce((a,b)=>a+b,0);
+            // Jika file kosong, gunakan data dummy bawaan
+            if (totalSPH === 0) {
+                totalSPH = 135; totalDeal = 45; totalPending = 45; totalCancel = 45;
+                dealBulan = [12, 5, 8, 11, 4, 9, 12, 3, 7, 10, 6, 11];
+                pendingBulan = [4, 12, 6, 3, 11, 5, 8, 12, 4, 9, 11, 10];
+                cancelBulan = [3, 4, 12, 5, 10, 11, 4, 6, 12, 3, 8, 11];
+            }
 
+            // Update Angka di Kartu Atas
+            document.getElementById('statTotal').innerText = totalSPH;
+            document.getElementById('statDeal').innerText = totalDeal;
+            document.getElementById('statPending').innerText = totalPending;
+            document.getElementById('statCancel').innerText = totalCancel;
+
+            // Render Kurva Grafik Chart.js
             const ctx = document.getElementById('sphTrendChart').getContext('2d');
             if (myChart) myChart.destroy();
+            
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'],
                     datasets: [
-                        { label: 'Deal', data: deal, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.15)', borderWidth: 3, tension: 0.4, fill: true },
-                        { label: 'Pending', data: pending, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', borderWidth: 2, tension: 0.4, fill: true },
-                        { label: 'Cancel', data: cancel, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderWidth: 2, tension: 0.4, fill: true }
+                        { label: 'Deal', data: dealBulan, borderColor: '#10b981', backgroundColor: 'rgba(16, 185, 129, 0.15)', borderWidth: 3, tension: 0.4, fill: true },
+                        { label: 'Pending', data: pendingBulan, borderColor: '#f59e0b', backgroundColor: 'rgba(245, 158, 11, 0.1)', borderWidth: 3, tension: 0.4, fill: true },
+                        { label: 'Cancel', data: cancelBulan, borderColor: '#ef4444', backgroundColor: 'rgba(239, 68, 68, 0.1)', borderWidth: 3, tension: 0.4, fill: true }
                     ]
                 },
                 options: {
-                    responsive: true, maintainAspectRatio: false,
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#cbd5e1' } } },
                     scales: {
                         x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
                         y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } }
@@ -152,7 +191,8 @@
                 }
             });
         }
-        processAndRender(JSON.parse(localStorage.getItem('data_sph')) || []);
+
+        processAndRenderExcel(JSON.parse(localStorage.getItem('data_sph')) || []);
     </script>
 </body>
 </html>
