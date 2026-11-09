@@ -4,35 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Penawaran Harga - Agung Jaya Listrik</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body {
-            background-color: #0d1117;
-            font-family: system-ui, -apple-system, sans-serif;
-        }
-        .card-dark {
-            background: rgba(22, 27, 34, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-        .glass-input {
-            background: rgba(15, 20, 30, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            color: white;
-        }
-        .glass-input:focus {
-            border-color: rgba(239, 68, 68, 0.6);
-            outline: none;
-        }
-        /* Style untuk Preview Kertas Cetak SPH */
-        .preview-page {
-            background: white;
-            color: black;
-            width: 100%;
-            min-height: 700px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
-        }
+        body { background-color: #0d1117; font-family: system-ui, -apple-system, sans-serif; }
+        .card-dark { background: rgba(22, 27, 34, 0.8); border: 1px solid rgba(255, 255, 255, 0.06); }
+        .glass-input { background: rgba(15, 20, 30, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: white; }
+        .glass-input:focus { border-color: rgba(239, 68, 68, 0.6); outline: none; }
+        .preview-page { background: white; color: black; width: 100%; min-height: 700px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
         @media print {
             body * { visibility: hidden; }
             #printable-area, #printable-area * { visibility: visible; }
@@ -43,7 +22,7 @@
 <body class="min-h-screen text-slate-200">
 
     <!-- Navbar Atas -->
-    <header class="border-b border-slate-800 bg-[#0d1117]/90 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+    <header class="border-b border-slate-800 bg-[#0d1117]/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
         <div class="flex items-center space-x-3">
             <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
                 <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
@@ -53,26 +32,18 @@
                 <p class="text-[10px] text-slate-400">Invoice & Dokumen</p>
             </div>
         </div>
-        
-        <nav class="hidden md:flex items-center space-x-1 text-sm font-medium">
+        <nav class="hidden md:flex items-center space-x-2 text-sm font-medium">
             <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
             <a href="sph.html" class="px-3 py-1.5 rounded-lg bg-red-600/20 text-red-500 font-semibold border border-red-500/30">Surat Penawaran Harga</a>
-            <a href="invoice.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Invoice</a>
-            <a href="surat-jalan.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Surat Jalan</a>
-            <a href="po.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Purchase Order</a>
-            <a href="riwayat-sph.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition ml-2 border border-slate-800">Lihat Riwayat SPH</a>
+            <a href="riwayat-sph.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Riwayat SPH</a>
         </nav>
-
         <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Logout</span>
+            <i class="fa-solid fa-right-from-bracket"></i><span>Logout</span>
         </a>
     </header>
 
     <!-- Konten Utama SPH -->
     <main class="max-w-7xl mx-auto px-6 py-6">
-        
-        <!-- Header Aksi Dokumen -->
         <div class="flex items-center justify-between mb-6">
             <div>
                 <p class="text-xs text-slate-400"><a href="dashboard.html" class="hover:underline">Dashboard</a> > Buat SPH</p>
@@ -80,8 +51,7 @@
             </div>
             <div class="flex items-center space-x-3">
                 <button onclick="generateNomor()" class="bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 hover:bg-indigo-600/30 px-4 py-2 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    <span>Generate Nomor</span>
+                    <i class="fa-solid fa-wand-magic-sparkles"></i><span>Generate Nomor</span>
                 </button>
                 <button onclick="resetForm()" class="card-dark text-slate-300 hover:text-white px-4 py-2 rounded-xl text-xs font-semibold transition">
                     <i class="fa-solid fa-rotate-right mr-1.5"></i> Reset
@@ -95,18 +65,13 @@
             </div>
         </div>
 
-        <!-- Grid Dua Kolom: Form Input (Kiri) & Preview Dokumen (Kanan) -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
-            <!-- KOLOM KIRI: FORM INPUT -->
+            <!-- Form Input -->
             <div class="lg:col-span-6 space-y-6">
                 <div class="card-dark rounded-2xl p-6 space-y-4">
                     <h3 class="text-sm font-bold text-white border-b border-slate-800 pb-3 flex items-center space-x-2">
-                        <i class="fa-solid fa-pen-to-square text-red-500"></i>
-                        <span>Form Input SPH</span>
+                        <i class="fa-solid fa-pen-to-square text-red-500"></i><span>Form Input SPH</span>
                     </h3>
-
-                    <!-- Tanggal & No Surat -->
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-medium text-slate-400 mb-1">Tanggal</label>
@@ -114,11 +79,9 @@
                         </div>
                         <div>
                             <label class="block text-xs font-medium text-slate-400 mb-1">Nomor Surat</label>
-                            <input type="text" id="inputNoSurat" placeholder="009/10/SPH/2026" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
+                            <input type="text" id="inputNoSurat" placeholder="Klik Generate Nomor" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
                         </div>
                     </div>
-
-                    <!-- Nama & Alamat Perusahaan Tujuan -->
                     <div>
                         <label class="block text-xs font-medium text-slate-400 mb-1">Nama Perusahaan Tujuan</label>
                         <input type="text" id="inputPerusahaan" placeholder="PT. Contoh Perusahaan" class="glass-input w-full rounded-xl px-3 py-2 text-xs" oninput="updatePreview()">
@@ -129,20 +92,14 @@
                     </div>
                 </div>
 
-                <!-- Bagian Daftar Item Produk/Jasa -->
                 <div class="card-dark rounded-2xl p-6 space-y-4">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3">
                         <h3 class="text-sm font-bold text-white flex items-center space-x-2">
-                            <i class="fa-solid fa-box text-red-500"></i>
-                            <span>Daftar Item / Produk</span>
+                            <i class="fa-solid fa-box text-red-500"></i><span>Daftar Item / Produk</span>
                         </h3>
-                        <button onclick="tambahItem()" class="bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 px-3 py-1.5 rounded-xl text-xs font-semibold transition">
-                            + Tambah Item
-                        </button>
+                        <button onclick="tambahItem()" class="bg-red-600/20 text-red-400 border border-red-500/30 hover:bg-red-600/30 px-3 py-1.5 rounded-xl text-xs font-semibold transition">+ Tambah Item</button>
                     </div>
-
                     <div id="containerItem" class="space-y-4">
-                        <!-- Item ke-1 (Default) -->
                         <div class="item-row card-dark p-4 rounded-xl relative space-y-3 border border-slate-800">
                             <div class="flex justify-between items-center">
                                 <span class="text-xs font-bold text-slate-300">Item #1</span>
@@ -150,25 +107,16 @@
                             </div>
                             <input type="text" placeholder="Nama Produk / Jasa" class="glass-input item-nama w-full rounded-lg px-3 py-1.5 text-xs" oninput="updatePreview()">
                             <div class="grid grid-cols-3 gap-2">
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Qty</label>
-                                    <input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label>
-                                    <input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
-                                <div>
-                                    <label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label>
-                                    <input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                                </div>
+                                <div><label class="block text-[10px] text-slate-400 mb-0.5">Qty</label><input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
+                                <div><label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label><input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
+                                <div><label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label><input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- KOLOM KANAN: PREVIEW DOKUMEN REAL-TIME -->
+            <!-- Preview Dokumen -->
             <div class="lg:col-span-6">
                 <div class="sticky top-20">
                     <div class="flex items-center justify-between mb-2">
@@ -176,10 +124,7 @@
                         <span class="text-[10px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded">Real-time update</span>
                     </div>
 
-                    <!-- Kertas Preview -->
                     <div id="printable-area" class="preview-page rounded-2xl p-8 text-slate-900 text-xs">
-                        
-                        <!-- Header Surat -->
                         <div class="flex justify-between items-start border-b-2 border-red-600 pb-6 mb-6">
                             <div class="flex items-center space-x-3">
                                 <div class="w-14 h-14 bg-white border border-slate-200 rounded-xl p-1 shadow-sm flex items-center justify-center">
@@ -192,21 +137,18 @@
                             </div>
                             <div class="text-right text-[9px] text-slate-600">
                                 <p><i class="fa-solid fa-location-dot text-red-600 mr-1"></i> Pasar Kenari Lama AKS LT.2 No.190 Jakarta Pusat</p>
-                                <p><i class="fa-solid fa-phone text-red-600 mr-1"></i> 081285789047 | <i class="fa-solid fa-envelope text-red-600 mr-1"></i> info@agungjayalistrik.com</p>
+                                <p><i class="fa-solid fa-phone text-red-600 mr-1"></i> 081285789047</p>
                             </div>
                         </div>
 
-                        <!-- Judul Surat -->
                         <div class="text-center my-6">
                             <h3 class="text-sm font-extrabold tracking-widest uppercase border-b border-slate-300 inline-block pb-1">Surat Penawaran Harga</h3>
                         </div>
 
-                        <!-- Info Surat & Ditujukan -->
                         <div class="grid grid-cols-2 gap-4 mb-6 text-[11px]">
                             <div class="space-y-1">
                                 <div class="flex"><span class="w-20 font-semibold">No. Surat</span>: <span id="prevNoSurat" class="ml-1 text-slate-700">-</span></div>
                                 <div class="flex"><span class="w-20 font-semibold">Tanggal</span>: <span id="prevTanggal" class="ml-1 text-slate-700">-</span></div>
-                                <div class="flex"><span class="w-20 font-semibold">Perihal</span>: <span class="ml-1 text-slate-700">Penawaran Harga</span></div>
                             </div>
                             <div class="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
                                 <p class="font-bold text-slate-800">Kepada Yth:</p>
@@ -215,9 +157,6 @@
                             </div>
                         </div>
 
-                        <p class="mb-4 text-slate-700">Dengan hormat,<br>Bersama ini kami sampaikan penawaran harga untuk produk/jasa kelistrikan sebagai berikut:</p>
-
-                        <!-- Tabel Item -->
                         <table class="w-full mb-6 border-collapse">
                             <thead>
                                 <tr class="bg-red-600 text-white text-[10px]">
@@ -228,22 +167,17 @@
                                     <th class="py-2 px-2 text-right w-28">JUMLAH</th>
                                 </tr>
                             </thead>
-                            <tbody id="previewTableBody" class="divide-y divide-slate-200 text-[11px]">
-                                <!-- Data item akan masuk otomatis lewat JS -->
-                            </tbody>
+                            <tbody id="previewTableBody" class="divide-y divide-slate-200 text-[11px]"></tbody>
                         </table>
 
-                        <!-- Total Keseluruhan -->
                         <div class="flex justify-end mb-8">
-                            <div class="w-64 bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1">
+                            <div class="w-64 bg-slate-50 p-3 rounded-lg border border-slate-200">
                                 <div class="flex justify-between font-bold text-slate-800 text-xs">
-                                    <span>Total Estimasi:</span>
-                                    <span id="prevTotal">Rp 0</span>
+                                    <span>Total Estimasi:</span><span id="prevTotal">Rp 0</span>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Tanda Tangan -->
                         <div class="flex justify-end mt-12">
                             <div class="text-center">
                                 <p class="text-slate-600 mb-12">Hormat kami,<br><strong>Agung Jaya Listrik</strong></p>
@@ -251,33 +185,27 @@
                                 <p class="text-[10px] text-slate-500">Direktur Utama</p>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
-
         </div>
     </main>
 
-    <!-- Skrip JavaScript Interaktif -->
     <script>
-        // Set tanggal hari ini secara otomatis saat halaman dibuka
         document.getElementById('inputTanggal').valueAsDate = new Date();
         updatePreview();
 
         function generateNomor() {
-            const randomNo = Math.floor(Math.random() * 900) + 100;
-            const bulan = new Date().getMonth() + 1;
-            const tahun = new Date().getFullYear();
-            const formatNo = `${String(randomNo).padStart(3, '0')}/${bulan}/SPH/${tahun}`;
-            document.getElementById('inputNoSurat').value = formatNo;
+            let saved = JSON.parse(localStorage.getItem('data_sph')) || [];
+            let nextNo = saved.length + 1;
+            let formattedNo = `${String(nextNo).padStart(3, '0')}/10/SPH/2026`;
+            document.getElementById('inputNoSurat').value = formattedNo;
             updatePreview();
         }
 
         function tambahItem() {
             const container = document.getElementById('containerItem');
             const rowCount = container.getElementsByClassName('item-row').length + 1;
-            
             const div = document.createElement('div');
             div.className = 'item-row card-dark p-4 rounded-xl relative space-y-3 border border-slate-800';
             div.innerHTML = `
@@ -287,18 +215,9 @@
                 </div>
                 <input type="text" placeholder="Nama Produk / Jasa" class="glass-input item-nama w-full rounded-lg px-3 py-1.5 text-xs" oninput="updatePreview()">
                 <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Qty</label>
-                        <input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label>
-                        <input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label>
-                        <input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()">
-                    </div>
+                    <div><label class="block text-[10px] text-slate-400 mb-0.5">Qty</label><input type="number" value="1" min="1" class="glass-input item-qty w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
+                    <div><label class="block text-[10px] text-slate-400 mb-0.5">Harga Satuan (Rp)</label><input type="number" value="0" class="glass-input item-harga w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
+                    <div><label class="block text-[10px] text-slate-400 mb-0.5">Satuan</label><input type="text" value="pcs" class="glass-input item-satuan w-full rounded-lg px-2 py-1 text-xs" oninput="updatePreview()"></div>
                 </div>
             `;
             container.appendChild(div);
@@ -310,25 +229,18 @@
         }
 
         function updatePreview() {
-            // Ambil data form utama
             const tgl = document.getElementById('inputTanggal').value;
             const noSurat = document.getElementById('inputNoSurat').value || '-';
             const perusahaan = document.getElementById('inputPerusahaan').value || '(Nama Perusahaan)';
             const alamat = document.getElementById('inputAlamat').value || '(Alamat Perusahaan)';
 
-            // Format tanggal Indonesia
-            let formattedDate = '-';
-            if(tgl) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                formattedDate = new Date(tgl).toLocaleDateString('id-ID', options);
-            }
+            let formattedDate = tgl ? new Date(tgl).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' }) : '-';
 
             document.getElementById('prevNoSurat').innerText = noSurat;
             document.getElementById('prevTanggal').innerText = formattedDate;
             document.getElementById('prevPerusahaan').innerText = perusahaan;
             document.getElementById('prevAlamat').innerText = alamat;
 
-            // Render Tabel Item ke Preview
             const rows = document.querySelectorAll('.item-row');
             let tbodyHTML = '';
             let grandTotal = 0;
@@ -352,10 +264,6 @@
                 `;
             });
 
-            if(rows.length === 0) {
-                tbodyHTML = `<tr><td colspan="5" class="text-center py-4 text-slate-400">Belum ada item</td></tr>`;
-            }
-
             document.getElementById('previewTableBody').innerHTML = tbodyHTML;
             document.getElementById('prevTotal').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
         }
@@ -369,7 +277,29 @@
         }
 
         function simpanData() {
-            alert("Surat Penawaran Harga (SPH) berhasil disimpan ke riwayat & dashboard!");
+            const noSurat = document.getElementById('inputNoSurat').value;
+            const perusahaan = document.getElementById('inputPerusahaan').value;
+            const tanggal = document.getElementById('inputTanggal').value;
+
+            if(!noSurat || !perusahaan) {
+                alert("Harap isi nomor surat dan nama perusahaan terlebih dahulu!");
+                return;
+            }
+
+            let saved = JSON.parse(localStorage.getItem('data_sph')) || [];
+            
+            const newData = {
+                id: Date.now(),
+                no: noSurat,
+                perusahaan: perusahaan,
+                tanggal: tanggal ? new Date(tanggal).toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' }) : 'Hari ini'
+            };
+
+            saved.unshift(newData); // Tambahkan ke urutan paling atas
+            localStorage.setItem('data_sph', JSON.stringify(saved));
+
+            alert("Surat Penawaran Harga berhasil disimpan ke Riwayat!");
+            window.location.href = 'riwayat-sph.html';
         }
     </script>
 </body>
