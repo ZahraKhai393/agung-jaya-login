@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat SPH - Agung Jaya Listrik</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background-color: #0d1117;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        .card-dark {
+            background: rgba(22, 27, 34, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .glass-input {
+            background: rgba(15, 20, 30, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: white;
+        }
+        .glass-input:focus {
+            border-color: rgba(239, 68, 68, 0.6);
+            outline: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen text-slate-200">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800 bg-[#0d1117]/80 backdrop-blur sticky top-0 z-50 px-6 py-3.5 flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+            <div class="w-10 h-10 bg-white rounded-xl flex items-center justify-center overflow-hidden p-1 shadow">
+                <img src="logoAJL.png" alt="Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+                <h1 class="text-white font-bold text-sm tracking-wide">Agung Jaya Listrik</h1>
+                <p class="text-[10px] text-slate-400">Invoice & Dokumen</p>
+            </div>
+        </div>
+
+        <nav class="hidden md:flex items-center space-x-2 text-sm font-medium">
+            <a href="dashboard.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Dashboard</a>
+            <a href="sph.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Surat Penawaran Harga</a>
+            <a href="invoice.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Invoice</a>
+            <a href="surat-jalan.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Surat Jalan</a>
+            <a href="po.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800/60 transition">Purchase Order</a>
+        </nav>
+
+        <a href="index.html" class="px-3 py-1.5 rounded-lg card-dark text-xs text-slate-300 hover:text-white flex items-center space-x-2">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+    </header>
+
+    <!-- Konten Utama Riwayat SPH -->
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        
+        <!-- Header Halaman & Tombol Aksi -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat SPH</h2>
+                <p id="jumlahData" class="text-xs text-slate-400 mt-1">Memuat data...</p>
+            </div>
+            <a href="sph.html" class="bg-red-600 hover:bg-red-500 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition shadow-lg shadow-red-600/20 flex items-center justify-center space-x-2 w-fit">
+                <i class="fa-solid fa-plus"></i>
+                <span>Buat SPH</span>
+            </a>
+        </div>
+
+        <!-- Kolom Pencarian -->
+        <div class="relative mb-6">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-400">
+                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+            </span>
+            <input type="text" id="inputCari" onkeyup="filterData()" placeholder="Cari nomor surat atau nama perusahaan..." class="glass-input w-full rounded-xl pl-11 pr-4 py-3 text-xs">
+        </div>
+
+        <!-- Tabel Data Riwayat -->
+        <div class="card-dark rounded-2xl overflow-hidden border border-slate-800">
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-800 text-slate-400 uppercase text-[10px] tracking-wider bg-slate-900/40">
+                            <th class="py-3.5 px-6 w-12 text-center">#</th>
+                            <th class="py-3.5 px-6">Nomor Surat</th>
+                            <th class="py-3.5 px-6">Nama Perusahaan</th>
+                            <th class="py-3.5 px-6">Tanggal</th>
+                            <th class="py-3.5 px-6 text-center w-28">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelBody" class="divide-y divide-slate-800/60">
+                        <!-- Data dimasukkan via JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Skrip Data & Interaksi -->
+    <script>
+        // Data Contoh SPH (Bisa ditambah atau otomatis tersimpan dari halaman buat SPH)
+        let dataSPH = [
+            { id: 1, no: "008/10/SPH/2026", perusahaan: "PT. Arisamandiri Pratama", tanggal: "27 Okt 2026" },
+            { id: 2, no: "007/10/SPH/2026", perusahaan: "Pak Hisyam (Maluku)", tanggal: "22 Okt 2026" },
+            { id: 3, no: "006/10/SPH/2026", perusahaan: "PT. Satya Energi Solusi", tanggal: "19 Okt 2026" },
+            { id: 4, no: "004/10/SPH/2026", perusahaan: "PT. Tirtamartandika Raharja", tanggal: "15 Okt 2026" },
+            { id: 5, no: "003/10/SPH/2026", perusahaan: "PT. Republika Mandiri Energi", tanggal: "15 Okt 2026" },
+            { id: 6, no: "002/10/SPH/2026", perusahaan: "PT. Primordia Siparup Perkasa", tanggal: "13 Okt 2026" },
+            { id: 7, no: "001/10/SPH/2026", perusahaan: "PT. Lintech Duta Pratama", tanggal: "6 Okt 2026" },
+            { id: 8, no: "011/09/SPH/2026", perusahaan: "Pak Lazuardi", tanggal: "29 Sep 2026" }
+        ];
+
+        function renderTabel(data) {
+            const tbody = document.getElementById('tabelBody');
+            document.getElementById('jumlahData').innerText = `${data.length} penawaran harga ditemukan`;
+            
+            if(data.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="text-center py-8 text-slate-500">Tidak ada data ditemukan</td></tr>`;
+                return;
+            }
+
+            let html = '';
+            data.forEach((item, index) => {
+                html += `
+                    <tr class="hover:bg-slate-800/30 transition">
+                        <td class="py-4 px-6 text-center text-slate-500">${index + 1}</td>
+                        <td class="py-4 px-6 font-bold text-white">${item.no}</td>
+                        <td class="py-4 px-6 text-slate-300 font-medium">${item.perusahaan}</td>
+                        <td class="py-4 px-6 text-slate-400">${item.tanggal}</td>
+                        <td class="py-4 px-6 text-center">
+                            <div class="flex items-center justify-center space-x-3 text-slate-400">
+                                <button onclick="cetakItem('${item.no}')" title="Cetak / Download" class="hover:text-blue-400 transition"><i class="fa-solid fa-file-arrow-down"></i></button>
+                                <button onclick="editItem(${item.id})" title="Edit" class="hover:text-amber-400 transition"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button onclick="hapusItem(${item.id})" title="Hapus" class="hover:text-red-400 transition"><i class="fa-solid fa-trash"></i></button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function filterData() {
+            const keyword = document.getElementById('inputCari').value.toLowerCase();
+            const filtered = dataSPH.filter(item => 
+                item.no.toLowerCase().includes(keyword) || item.perusahaan.toLowerCase().includes(keyword)
+            );
+            renderTabel(filtered);
+        }
+
+        function hapusItem(id) {
+            if(confirm("Apakah kamu yakin ingin menghapus data SPH ini?")) {
+                dataSPH = dataSPH.filter(item => item.id !== id);
+                renderTabel(dataSPH);
+            }
+        }
+
+        function cetakItem(noSurat) {
+            alert(`Mempersiapkan dokumen ${noSurat} untuk dicetak/download PDF...`);
+            window.location.href = 'sph.html';
+        }
+
+        function editItem(id) {
+            alert(`Membuka mode edit untuk data ID: ${id}`);
+            window.location.href = 'sph.html';
+        }
+
+        // Jalankan saat pertama load
+        renderTabel(dataSPH);
+    </script>
+</body>
+</html>
