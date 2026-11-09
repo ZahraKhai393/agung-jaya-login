@@ -41,7 +41,7 @@
         <div class="flex justify-between items-center">
             <div>
                 <h2 class="text-2xl font-bold text-white tracking-tight">Riwayat & Alur Status SPH</h2>
-                <p class="text-xs text-slate-400 mt-1">Kelola status penawaran harga, masa berlaku, dan catatan follow-up pelanggan</p>
+                <p class="text-xs text-slate-400 mt-1">Kelola status penawaran harga, edit data, dan konversi langsung ke invoice</p>
             </div>
             <a href="sph.html" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2.5 rounded-xl text-xs font-semibold transition flex items-center space-x-2">
                 <i class="fa-solid fa-plus"></i><span>Buat SPH Baru</span>
@@ -58,7 +58,7 @@
                         <th class="py-4 px-6">Customer</th>
                         <th class="py-4 px-6">Tanggal Kirim</th>
                         <th class="py-4 px-6 text-center">Status SPH</th>
-                        <th class="py-4 px-6 text-center">Aksi & Follow-up</th>
+                        <th class="py-4 px-6 text-center">Aksi & Konversi</th>
                     </tr>
                 </thead>
                 <tbody id="tabelRiwayatSPH" class="divide-y divide-slate-800/40 text-slate-300">
@@ -68,10 +68,38 @@
         </div>
     </main>
 
+    <!-- Modal Edit SPH -->
+    <div id="modalEditSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
+        <div class="card-dark rounded-2xl w-full max-w-md p-6 bg-[#161b22] space-y-4">
+            <h3 class="text-lg font-bold text-white">Edit Informasi SPH</h3>
+            <input type="hidden" id="editIndex">
+            
+            <div class="space-y-3 text-xs">
+                <div>
+                    <label class="block text-slate-400 mb-1">No. SPH</label>
+                    <input type="text" id="editNoSPH" class="glass-input w-full rounded-xl px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Nama Perusahaan / Customer</label>
+                    <input type="text" id="editPerusahaan" class="glass-input w-full rounded-xl px-3 py-2">
+                </div>
+                <div>
+                    <label class="block text-slate-400 mb-1">Tanggal Kirim</label>
+                    <input type="date" id="editTanggal" class="glass-input w-full rounded-xl px-3 py-2">
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-2">
+                <button onclick="tutupModalEdit()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanEditSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Perubahan</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal Update Status & Follow-up -->
     <div id="modalStatusSPH" class="hidden fixed inset-0 z-50 bg-black/70 flex items-center justify-center p-4">
         <div class="card-dark rounded-2xl w-full max-w-lg p-6 bg-[#161b22] space-y-4">
-            <h3 class="text-lg font-bold text-white">Kelola SPH & Catat Follow-up</h3>
+            <h3 class="text-lg font-bold text-white">Kelola Status & Catat Follow-up</h3>
             <input type="hidden" id="modalIndex">
             
             <div class="space-y-3 text-xs">
@@ -86,7 +114,7 @@
                     </select>
                 </div>
 
-                <!-- Bagian Alasan Batal (Wajib jika Batal) -->
+                <!-- Bagian Alasan Batal -->
                 <div id="containerAlasan" class="hidden space-y-1">
                     <label class="block text-slate-400 mb-1">Alasan Batal <span class="text-red-500">*wajib diisi</span></label>
                     <select id="selectAlasan" class="glass-input w-full rounded-xl px-3 py-2">
@@ -119,14 +147,14 @@
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 mb-1">Ringkasan Respons Pelanggan</label>
-                        <textarea id="followupCatatan" rows="2" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs" placeholder="Contoh: Masih membandingkan harga dengan vendor lain..."></textarea>
+                        <textarea id="followupCatatan" rows="2" class="glass-input w-full rounded-lg px-2.5 py-1.5 text-xs" placeholder="Contoh: Masih membandingkan harga..."></textarea>
                     </div>
                 </div>
             </div>
 
             <div class="flex justify-end space-x-3 pt-2">
-                <button onclick="tutupModal()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
-                <button onclick="simpanStatusSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Perubahan</button>
+                <button onclick="tutupModalStatus()" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs">Batal</button>
+                <button onclick="simpanStatusSPH()" class="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-semibold">Simpan Status</button>
             </div>
         </div>
     </div>
@@ -153,7 +181,6 @@
                 else if(status === 'Draft') badgeStyle = 'bg-slate-500/10 text-slate-400 border-slate-500/20';
                 else if(status === 'Kedaluwarsa') badgeStyle = 'bg-purple-500/10 text-purple-400 border-purple-500/20';
 
-                // Hitung umur pending untuk badge warna (Hijau 0-3hr, Kuning 4-7hr, Merah >7hr)
                 let tglKirim = new Date(item.tanggal || Date.now());
                 let selisihHari = Math.floor((new Date() - tglKirim) / (1000 * 60 * 60 * 24));
                 let umurBadge = '';
@@ -161,7 +188,7 @@
                     let warnaUmur = 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30';
                     if(selisihHari > 3 && selisihHari <= 7) warnaUmur = 'bg-amber-500/20 text-amber-400 border-amber-500/30';
                     if(selisihHari > 7) warnaUmur = 'bg-red-500/20 text-red-400 border-red-500/30';
-                    umurBadge = `<span class="${warnaUmur} px-2 py-0.5 rounded text-[9px] font-bold ml-1">${selisihHari} hari</span>`;
+                    umurBadge = `<span class="${warnaUmur} px-2 py-0.5 rounded text-[9px] font-bold ml-1">${selisihHari} hr</span>`;
                 }
 
                 return `
@@ -174,71 +201,76 @@
                             <span class="${badgeStyle} border px-2.5 py-1 rounded-full text-[10px] font-bold">${status}</span>
                             ${umurBadge}
                         </td>
-                        <td class="py-4 px-6 text-center space-x-2">
+                        <td class="py-4 px-6 text-center space-x-1.5">
                             ${status === 'Deal' ? `
-                                <button onclick="ubahKeInvoice('${item.no}', '${item.perusahaan}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-2 py-1 rounded-lg text-[11px] font-semibold transition">
-                                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Buat Invoice
+                                <button onclick="ubahKeInvoice('${item.no}', '${item.perusahaan}')" class="bg-indigo-600/20 hover:bg-indigo-600/40 text-indigo-400 border border-indigo-500/30 px-2.5 py-1 rounded-lg text-[11px] font-semibold transition" title="Konversi ke Invoice">
+                                    <i class="fa-solid fa-file-invoice-dollar mr-1"></i> Convert Invoice
                                 </button>
                             ` : ''}
-                            <button onclick="bukaModal(${index})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2.5 py-1 rounded-lg text-[11px] font-medium transition" title="Kelola Status & Follow-up">
-                                <i class="fa-solid fa-pen-to-square mr-1"></i> Kelola / Follow-up
+                            <button onclick="bukaModalEdit(${index})" class="bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 px-2 py-1 rounded-lg text-[11px] transition" title="Edit Data SPH">
+                                <i class="fa-solid fa-pen-to-square"></i> Edit
                             </button>
+                            <button onclick="bukaModalStatus(${index})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 px-2 py-1 rounded-lg text-[11px] transition" title="Status & Follow-up">
+                                <i class="fa-solid fa-list-check"></i> Status
+                            </button>
+                            <button onclick="hapusSPH(${index})" class="text-slate-500 hover:text-red-400 px-1 py-1" title="Hapus"><i class="fa-solid fa-trash text-xs"></i></button>
                         </td>
                     </tr>
                 `;
             }).join('');
         }
 
-        function bukaModal(index) {
+        // Fungsi Edit SPH
+        function bukaModalEdit(index) {
+            document.getElementById('editIndex').value = index;
+            document.getElementById('editNoSPH').value = riwayatSPH[index].no;
+            document.getElementById('editPerusahaan').value = riwayatSPH[index].perusahaan;
+            document.getElementById('editTanggal').value = riwayatSPH[index].tanggal || '';
+            document.getElementById('modalEditSPH').classList.remove('hidden');
+        }
+        function tutupModalEdit() { document.getElementById('modalEditSPH').classList.add('hidden'); }
+        function simpanEditSPH() {
+            const index = document.getElementById('editIndex').value;
+            riwayatSPH[index].no = document.getElementById('editNoSPH').value;
+            riwayatSPH[index].perusahaan = document.getElementById('editPerusahaan').value;
+            riwayatSPH[index].tanggal = document.getElementById('editTanggal').value;
+            localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+            tutupModalEdit();
+            renderTabelSPH();
+            alert('Data SPH berhasil diperbarui!');
+        }
+
+        // Fungsi Status & Follow-up
+        function bukaModalStatus(index) {
             document.getElementById('modalIndex').value = index;
             document.getElementById('selectStatus').value = riwayatSPH[index].status || 'Pending';
             document.getElementById('selectAlasan').value = riwayatSPH[index].alasan || 'Harga terlalu tinggi';
             toggleAlasanBatal();
             document.getElementById('modalStatusSPH').classList.remove('hidden');
         }
-
-        function tutupModal() {
-            document.getElementById('modalStatusSPH').classList.add('hidden');
-        }
-
+        function tutupModalStatus() { document.getElementById('modalStatusSPH').classList.add('hidden'); }
         function toggleAlasanBatal() {
             const status = document.getElementById('selectStatus').value;
-            const containerAlasan = document.getElementById('containerAlasan');
-            if (status === 'Batal') {
-                containerAlasan.classList.remove('hidden');
-            } else {
-                containerAlasan.classList.add('hidden');
-            }
+            document.getElementById('containerAlasan').classList.toggle('hidden', status !== 'Batal');
         }
-
         function simpanStatusSPH() {
             const index = document.getElementById('modalIndex').value;
             const statusBaru = document.getElementById('selectStatus').value;
-            const alasanBaru = document.getElementById('selectAlasan').value;
-            const catatanFollowup = document.getElementById('followupCatatan').value;
-
             riwayatSPH[index].status = statusBaru;
-            if (statusBaru === 'Batal') {
-                riwayatSPH[index].alasan = alasanBaru;
-            } else {
-                riwayatSPH[index].alasan = '';
-            }
-
-            // Simpan riwayat follow-up sederhana ke array item
-            if(!riwayatSPH[index].followups) riwayatSPH[index].followups = [];
-            if(catatanFollowup.trim() !== '') {
-                riwayatSPH[index].followups.push({
-                    tanggal: new Date().toISOString().split('T')[0],
-                    media: document.getElementById('followupMedia').value,
-                    catatan: catatanFollowup,
-                    berikutnya: document.getElementById('followupNextDate').value
-                });
-            }
-
+            riwayatSPH[index].alasan = (statusBaru === 'Batal') ? document.getElementById('selectAlasan').value : '';
+            
             localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
-            tutupModal();
+            tutupModalStatus();
             renderTabelSPH();
-            alert('Status dan catatan follow-up SPH berhasil diperbarui!');
+            alert('Status SPH berhasil diperbarui!');
+        }
+
+        function hapusSPH(index) {
+            if(confirm('Hapus riwayat SPH ini?')) {
+                riwayatSPH.splice(index, 1);
+                localStorage.setItem('data_sph', JSON.stringify(riwayatSPH));
+                renderTabelSPH();
+            }
         }
 
         function ubahKeInvoice(noSPH, perusahaan) {
